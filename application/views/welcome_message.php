@@ -56,18 +56,20 @@
 		padding: 0 10px 0 10px;
 		margin: 20px 0 0 0;
 	}
-	
-	#container{
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		-webkit-box-shadow: 0 0 8px #D0D0D0;
-	}
+
+    #container {
+        margin: 10px;
+        border: 1px solid #D0D0D0;
+        -webkit-box-shadow: 0 0 8px #D0D0D0;
+        padding: 10px;
+        text-align: center;
+    }
 	</style>
 </head>
 <body>
 
 <div id="container">
-	Hello
+	<h2>Hello Avi and Reuven :-)</h2>
 </div>
 
 </body>
