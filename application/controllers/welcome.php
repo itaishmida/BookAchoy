@@ -21,14 +21,8 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 
-        $this->load->model('user_model');
-        $data['users'] = $this->user_model->get_users();
+        $this->load->view('welcome_message');
 
-
-    //view
-        $this->load->view('header');
-      $this->load->view('main',$data);
-        $this->load->view('footer');
 
 	}
     function addUser()
