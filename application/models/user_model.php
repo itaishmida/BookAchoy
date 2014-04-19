@@ -6,9 +6,12 @@ class User_model extends CI_Model {
     }
     function get_users()
     {
-        $x = $this->db->get('users');
+        $x = array(
+            "shay" => "123987123",
+            "adi" => "0921397123"
+        );
 
-        return $x->result_array();
+        return $x;//array
     }
 
 
