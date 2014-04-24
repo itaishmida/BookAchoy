@@ -2,19 +2,6 @@
 
 class Page extends CI_Controller {
 
-    /*
-     * Constructor
-     * Loads facebook API
-     */
-    public function Page(){
-        parent::__construct();
-        parse_str( $_SERVER['QUERY_STRING'], $_REQUEST );
-        $CI = & get_instance();
-        $CI->config->load("facebook",TRUE);
-        $config = $CI->config->item('facebook');
-        $this->load->library('Facebook', $config);
-    }
-
 	public function index()
 	{
 
@@ -44,28 +31,25 @@ class Page extends CI_Controller {
 
     public function friends()
     {
-        /*
         $this->load->model('facebook_model');
-        $data['friends'] = $this->facebook_model->get_friends();
+        $data['url'] = $this->facebook_model->getLoginUrl();
+        $data['friends'] = $this->facebook_model->getFriends();
         $this->load->view('template/header');
-        $this->load->view('friends',$data);
+        $this->load->view('friends', $data);
         $this->load->view('template/footer');
-        */
-        // Try to get the user's id on Facebook
-        $userId = $this->facebook->getUser();
+    }
 
-        // If user is not yet authenticated, the id will be zero
-        if($userId == 0){
-            // Generate a login url
-            $data['url'] = $this->facebook->getLoginUrl(array('scope'=>'email'));
-            $this->load->view('template/header');
-            $this->load->view('friends',$data);
-            $this->load->view('template/footer');
-        } else {
-            // Get user's data and print it
-            $user = $this->facebook->api('/me');
-            print_r($user);
-        }
+    public function profile()
+    {
+        $this->load->model('facebook_model');
+        $this->load->model('book_model');
+        $data['url'] = $this->facebook_model->getLoginUrl();
+        $data['friends'] = $this->facebook_model->getFriends();
+        $data2['books'] = $this->book_model->getFakeBooks();
+        $this->load->view('template/header');
+        $this->load->view('friends', $data);
+        $this->load->view('books', $data2);
+        $this->load->view('template/footer');
     }
 }
 

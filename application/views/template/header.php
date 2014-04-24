@@ -37,7 +37,7 @@
                                 <a href="<?php echo base_url("page/about"); ?>">About</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url("page/friends"); ?>">Friends</a>
+                                <a href="<?php echo base_url("page/profile"); ?>">My Profile</a>
                             </li>
 
 
