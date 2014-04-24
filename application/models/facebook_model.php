@@ -22,7 +22,7 @@ class facebook_model extends CI_Model {
     }
 
     public function getLoginUrl() {
-        return ""; // for test
+        //return ""; // for test
         $userId = $this->facebook->getUser();
         if($userId == 0)
             return $this->facebook->getLoginUrl(array('scope'=>'email'));
@@ -30,13 +30,13 @@ class facebook_model extends CI_Model {
     }
 
     public function getFriends() {
-        return $this->getFakeFriends(); // for test
+        //return $this->getFakeFriends(); // for test
         $userId = $this->facebook->getUser();
         if($userId != 0) {
             $temp = $this->facebook->api('/me/friends');
             return $temp["data"];
         }
-        return "";
+        return $this->getFakeFriends();
     }
 
     private function getFakeFriends()

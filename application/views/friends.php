@@ -24,7 +24,7 @@
 
 
 <?php
-    if ($url=="" || true) { ?>
+    if ($friends!="") { ?>
         <Div class="row">
             <Div class="col-md-1"></Div>
             <Div class="col-md-10" style="background-color: lightgray">
