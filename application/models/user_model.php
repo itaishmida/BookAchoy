@@ -1,6 +1,8 @@
 <?php
 class User_model extends CI_Model {
 
+    private $facebookId;
+
     function __construct(){
         parent::__construct();
     }
@@ -14,5 +16,11 @@ class User_model extends CI_Model {
         return $x;//array
     }
 
+    function getFriends() {
+        $this->load->model('facebook_model');
+        $friends = $this->facebook_model->getFriends();
+        $this->load->class('UserMySqlDAO');
+        $this->UserMySqlDAO->insert($user);
+    }
 
 }

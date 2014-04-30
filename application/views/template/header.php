@@ -39,6 +39,12 @@
                             <li>
                                 <a href="<?php echo base_url("page/profile"); ?>">My Profile</a>
                             </li>
+                            <li>
+                                <a href="<?php echo base_url("page/mybooks"); ?>">My Books</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url("page/friends"); ?>">My Friends</a>
+                            </li>
 
 
 

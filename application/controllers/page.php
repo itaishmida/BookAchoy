@@ -34,6 +34,7 @@ class Page extends CI_Controller {
         $this->load->model('facebook_model');
         $data['url'] = $this->facebook_model->getLoginUrl();
         $data['friends'] = $this->facebook_model->getFriends();
+        $data['allFriends'] = true;
         $this->load->view('template/header');
         $this->load->view('friends', $data);
         $this->load->view('template/footer');
@@ -43,13 +44,27 @@ class Page extends CI_Controller {
     {
         $this->load->model('facebook_model');
         $this->load->model('book_model');
+
         $data['url'] = $this->facebook_model->getLoginUrl();
         $data['friends'] = $this->facebook_model->getFriends();
+        $data['allFriends'] = false;
         $data2['books'] = $this->book_model->getFakeBooks();
+
         $this->load->view('template/header');
         $this->load->view('friends', $data);
         $this->load->view('books', $data2);
         $this->load->view('template/footer');
     }
+
+    public function myBooks()
+    {
+        $this->load->model('book_model');
+        $data['books'] = $this->book_model->getFakeBooks();
+        $this->load->view('template/header');
+        $this->load->view('books', $data);
+        $this->load->view('template/footer');
+    }
+
+
 }
 

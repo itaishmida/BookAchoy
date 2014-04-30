@@ -44,28 +44,52 @@ class facebook_model extends CI_Model {
         $friends = array(
             "data" => array(
                 0 => array(
-                    "name" => "Ronen Kahana",
-                    "id" => "507700025"
+                    "name" => "Adi Mizrahi1‎‏‏",
+                    "id" => "541032350"
                 ),
                 1 => array(
-                    "name" => "Sinai Oren",
-                    "id" => "513846204"
+                    "name" => "Itai Shmida",
+                    "id" => "100000617083781"
                 ),
                 2 => array(
                     "name" => "Shlomit Bar-Levav",
                     "id" => "516858663"
                 ),
                 3 => array(
-                    "name" => "Dotan Horovits",
-                    "id" => "517292892"
+                    "name" => "Shai Fisher",
+                    "id" => "676039134"
                 ),
                 4 => array(
-                    "name" => "Gefen Shoval",
-                    "id" => "592783367"
+                    "name" => "Mor Hasson",
+                    "id" => "1093670109"
                 ),
                 5 => array(
                     "name" => "Uri Abeles",
                     "id" => "661510087"
+                ),
+                6 => array(
+                    "name" => "Yael Bresler‎‏‏",
+                    "id" => "825014312"
+                ),
+                7 => array(
+                    "name" => "Shiran Mor Yosef",
+                    "id" => "1314034435"
+                ),
+                8 => array(
+                    "name" => "Yosi Bar-niv",
+                    "id" => "100000190638748"
+                ),
+                9 => array(
+                    "name" => "Rotem Benjamin",
+                    "id" => "100007678632235"
+                ),
+                10 => array(
+                    "name" => "To Sha",
+                    "id" => "1765676322"
+                ),
+                11 => array(
+                    "name" => "Kobi Eliasi",
+                    "id" => "1111720418"
                 )
             )
         );
