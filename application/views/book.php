@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <a href="http://books.google.co.il/books?id=<?php echo $book["googleBooksId"]; ?>" target="_blank">
-                        <img src="<?php echo $book["picUrl"]; ?>" class="img-responsive">
+                        <img src="<?php echo $book["picUrl"]; ?>&zoom=2" class="img-responsive">
                     </a>
                 </div>
                 <div class="col-md-9">
