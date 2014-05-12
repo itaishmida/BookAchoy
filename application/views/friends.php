@@ -5,10 +5,7 @@
  * Date: 18/04/14
  * Time: 15:13
  */
-    if ($allFriends)
         $numOfFriends = count($friends);
-    else
-        $numOfFriends = 6;
 ?>
 <!doctype html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml">
@@ -45,10 +42,7 @@
         <Div class="row">
             <Div class="col-md-1"></Div>
             <Div class="col-md-10" style="background-color: lightgray">
-                <H2>My Friends
-<?php           if (!$allFriends) { ?>
-                    <small><a href="friends">show all</a></small>
-<?php           } ?>
+                <H2><?php echo $title; ?>
                 </H2>
 
 <?php           $start = rand(0, count($friends));

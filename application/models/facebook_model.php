@@ -39,6 +39,19 @@ class facebook_model extends CI_Model {
         return $this->getFakeFriends();
     }
 
+    public function getSomeFriends($numOfFriends)
+    {
+        $allFriends = $this->getFriends();
+        $friends = array();
+
+        $start = rand(0, count($allFriends));
+        for ($i = 0; $i<$numOfFriends; $i++) {
+            $j = ($start + $i) % count($allFriends);
+            $friends[$i] = $allFriends[$j];
+        }
+        return $friends;
+    }
+
     private function getFakeFriends()
     {
         $friends = array(

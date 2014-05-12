@@ -85,4 +85,18 @@ class book_model {
         );
         return $books;
     }
+
+
+    public function getFakeBook() {
+        //$this->load->model('facebook_model');
+        //$owners = $this->facebook_model->getSomeFriends(3);
+        $book = array(
+            "name" => "סיפור על אהבה וחושך",
+            "author" => "עמוס עוז",
+            "picUrl" => "http://bks0.books.google.co.il/books?id=YD_IqvIbjkUC&printsec=frontcover&img=1&zoom=2&edge=curl&imgtk=AFLRE71JeyM-kCkokhV-SIZsX6lXCiYmzg7QLzgYUJOYcHKflkyu7l65BHHf9yePAXw60RaUAlmfdBizQsmfAozEz0uVOrT55tZfPMS_NjJfGaqPUmnp5AimSYCVHLnsLPD4-zRTY6p-",
+            "googleBooksId" => "YD_IqvIbjkUC"
+           // "owners" => $owners
+        );
+        return $book;
+    }
 } 

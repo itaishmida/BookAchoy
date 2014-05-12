@@ -32,9 +32,10 @@ class Page extends CI_Controller {
     public function friends()
     {
         $this->load->model('facebook_model');
+        $data['title'] = "My Friends";
         $data['url'] = $this->facebook_model->getLoginUrl();
         $data['friends'] = $this->facebook_model->getFriends();
-        $data['allFriends'] = true;
+        //$data['allFriends'] = true;
         $this->load->view('template/header');
         $this->load->view('friends', $data);
         $this->load->view('template/footer');
@@ -42,17 +43,12 @@ class Page extends CI_Controller {
 
     public function profile()
     {
-        $this->load->model('facebook_model');
-        $this->load->model('book_model');
+        $this->load->model('user_model');
 
-        $data['url'] = $this->facebook_model->getLoginUrl();
-        $data['friends'] = $this->facebook_model->getFriends();
-        $data['allFriends'] = false;
-        $data2['books'] = $this->book_model->getFakeBooks();
+        $data['test'] = $this->user_model->checkDatabase();
 
         $this->load->view('template/header');
-        $this->load->view('friends', $data);
-        $this->load->view('books', $data2);
+        $this->load->view('test', $data);
         $this->load->view('template/footer');
     }
 
@@ -65,6 +61,19 @@ class Page extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function book()
+    {
+        $this->load->model('book_model');
+        $data['book'] = $this->book_model->getFakeBook();
+        $this->load->model('facebook_model');
+        $data2['title'] = "Friends who has this book";
+        $data2['url'] = $this->facebook_model->getLoginUrl();
+        $data2['friends'] = $this->facebook_model->getSomeFriends(3);
+        $this->load->view('template/header');
+        $this->load->view('book', $data);
+        $this->load->view('friends', $data2);
+        $this->load->view('template/footer');
+    }
 
 }
 
