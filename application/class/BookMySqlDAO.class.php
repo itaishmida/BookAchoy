@@ -57,10 +57,11 @@ class BookMySqlDAO implements BookDAO{
  	 * @param BookMySql book
  	 */
 	public function insert($book){
-		$sql = 'INSERT INTO book (name, genre, overall_rating) VALUES (?, ?, ?)';
+		$sql = 'INSERT INTO book (name, author, genre, overall_rating) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($book->name);
+		$sqlQuery->set($book->author);
 		$sqlQuery->set($book->genre);
 		$sqlQuery->setNumber($book->overallRating);
 
@@ -75,10 +76,11 @@ class BookMySqlDAO implements BookDAO{
  	 * @param BookMySql book
  	 */
 	public function update($book){
-		$sql = 'UPDATE book SET name = ?, genre = ?, overall_rating = ? WHERE id = ?';
+		$sql = 'UPDATE book SET name = ?, author = ?, genre = ?, overall_rating = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($book->name);
+		$sqlQuery->set($book->author);
 		$sqlQuery->set($book->genre);
 		$sqlQuery->setNumber($book->overallRating);
 
@@ -123,6 +125,13 @@ class BookMySqlDAO implements BookDAO{
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
+	
+	public function deleteByAuthor($value){
+		$sql = 'DELETE FROM book WHERE author = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($value);
+		return $this->executeUpdate($sqlQuery);
+	}
 
 	public function deleteByGenre($value){
 		$sql = 'DELETE FROM book WHERE genre = ?';
@@ -150,6 +159,7 @@ class BookMySqlDAO implements BookDAO{
 		
 		$book->id = $row['id'];
 		$book->name = $row['name'];
+		$book->author = $row['author'];
 		$book->genre = $row['genre'];
 		$book->overallRating = $row['overall_rating'];
 

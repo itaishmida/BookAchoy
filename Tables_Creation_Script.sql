@@ -39,6 +39,7 @@ DROP TABLE IF EXISTS `book`;
 CREATE TABLE IF NOT EXISTS `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(120) CHARACTER SET latin1 NOT NULL,
+  `author` varchar(120) CHARACTER SET latin1 NOT NULL,
   `genre` varchar(100) CHARACTER SET latin1 NOT NULL,
   `overall_rating` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
