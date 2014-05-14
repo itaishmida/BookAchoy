@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `review` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fbid` varchar(30) CHARACTER SET latin1 NOT NULL,
   `name` varchar(60) CHARACTER SET latin1 NOT NULL,
   `email` varchar(254) CHARACTER SET latin1 NOT NULL,
   `acct_status` tinyint(4) NOT NULL,

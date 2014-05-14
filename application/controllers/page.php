@@ -77,11 +77,10 @@ class Page extends CI_Controller {
 
     public function newsfeed()
     {
+        $this->load->model('user_model');
         $this->load->model('newsfeed_model');
-        //$data['book'] = $this->book_model->getFakeBook();
-        $data2['title'] = "BookAchoy News Feed";
         $this->load->view('template/header');
-        $this->load->view('newsfeed', $data2);
+        $this->load->view('newsfeed');
         $this->load->view('template/footer');
     }
 

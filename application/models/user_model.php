@@ -1,33 +1,14 @@
 <?php
 class User_model extends CI_Model {
 
-    private $facebookId;
-
     function __construct(){
         parent::__construct();
     }
-    function get_users()
+    function get_user($id)
     {
-        $x = array(
-            "shay" => "123987123",
-            "adi" => "0921397123"
-        );
+        $query = $this->db->query('SELECT * FROM user WHERE id = ' . $id);
 
-        return $x;//array
-    }
-
-    function checkDatabase() {
-        $this->load->model('facebook_model');
-        $friends = $this->facebook_model->getFriends();
-
-        $this->load->class('UserMySqlDAO.class');
-        $user = null;
-        $user->id = '111';
-        $user->name = 'shai fisher';
-        $myInstance->insert($user);
-
-        $user2 = $myInstance->load('111');
-        return $user2;
+        return $query->result();//array
     }
 
 }
