@@ -35,6 +35,10 @@ USE `maplehos_bookachoy`;
 -- Creation: Apr 12, 2014 at 12:58 PM
 --
 
+
+DROP TABLE IF EXISTS `book`, `loans`, `review`, `user`, `users_friends`, `users_owned_books`, `users_read_books`, `wishes`;
+DROP TABLE IF EXISTS `book`, `user`;
+
 DROP TABLE IF EXISTS `book`;
 CREATE TABLE IF NOT EXISTS `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -83,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   `book_id` int(11) NOT NULL,
   `rating` tinyint(4) NOT NULL,
   `review_text` text CHARACTER SET latin1 NOT NULL,
-  UNIQUE KEY `user_book_ids` (`user_id`,`book_id`),
+  UNIQUE KEY `user_book_ids_index` (`user_id`,`book_id`),
   KEY `user_id` (`user_id`),
   KEY `book_id` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -105,7 +109,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `acct_status` tinyint(4) NOT NULL,
   `join_date` date NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
+  UNIQUE KEY `email_index` (`email`),
+  UNIQUE KEY `fbid_index` (`fbid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -154,7 +159,7 @@ DROP TABLE IF EXISTS `users_read_books`;
 CREATE TABLE IF NOT EXISTS `users_read_books` (
   `user_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
-  UNIQUE KEY `user_book_id` (`user_id`,`book_id`),
+  UNIQUE KEY `user_book_id_index` (`user_id`,`book_id`),
   KEY `user_id` (`user_id`),
   KEY `book_id` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -172,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `wishes` (
   `user_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `wish_date` date NOT NULL,
-  UNIQUE KEY `user_book_ids` (`user_id`,`book_id`),
+  UNIQUE KEY `user_book_ids_index` (`user_id`,`book_id`),
   KEY `user_id` (`user_id`),
   KEY `book_id` (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
