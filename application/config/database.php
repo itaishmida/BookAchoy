@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '528483_adimzzz';
-$db['default']['password'] = 'Aa123456';
-$db['default']['database'] = 'aditrades_99k_users';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
+$db['default']['database'] = 'maplehos_bookachoy';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;

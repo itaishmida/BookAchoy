@@ -43,8 +43,10 @@ $config['index_page'] = '';
 | 'REQUEST_URI'		Uses the REQUEST_URI
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
+| Old setting: $config['uri_protocol']	= 'AUTO';
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol'] = "PATH_INFO";
+
 
 /*
 |--------------------------------------------------------------------------
