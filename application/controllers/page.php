@@ -31,11 +31,21 @@ class Page extends CI_Controller {
 
     public function friends()
     {
+        $this->load->model('login_model');
         $this->load->model('facebook_model');
+        $this->load->model('user_model');
         $data['title'] = "My Friends";
         $data['url'] = $this->facebook_model->getLoginUrl();
-        $data['friends'] = $this->facebook_model->getFriends();
-        //$data['allFriends'] = true;
+
+        $user = $this->login_model->getCurrentUser();
+        $user = $user[0];
+
+        // retrieve friends from facebook, in the future will be in a batch
+        $this->user_model->updateFriends($user);
+
+        // retrieve friends from DB
+        $data['friends'] = $this->user_model->getFriends($user->id);
+
         $this->load->view('template/header');
         $this->load->view('friends', $data);
         $this->load->view('template/footer');
@@ -54,21 +64,29 @@ class Page extends CI_Controller {
 
     public function myBooks()
     {
+        $this->load->model('facebook_model');
         $this->load->model('book_model');
-        $data['books'] = $this->book_model->getFakeBooks();
+        //$data['books'] = $this->book_model->getFakeBooks();
+        $facebookId = $this->facebook_model->getFacebookId();
+        $data['books'] = $this->book_model->getUserBooks($facebookId);
+        if ($data['books']==null) {
+            $this->book_model->insertFakeBooks($facebookId);
+            $data['books'] = $this->book_model->getUserBooks($facebookId);
+        }
         $this->load->view('template/header');
         $this->load->view('books', $data);
         $this->load->view('template/footer');
     }
 
-    public function book()
+    public function book($bookId)
     {
+        echo $bookId;
         $this->load->model('book_model');
         $data['book'] = $this->book_model->getFakeBook();
         $this->load->model('facebook_model');
         $data2['title'] = "Friends who has this book";
         $data2['url'] = $this->facebook_model->getLoginUrl();
-        $data2['friends'] = $this->facebook_model->getSomeFriends(3);
+        $data2['friends'] = $this->book_model->getOwners(253);
         $this->load->view('template/header');
         $this->load->view('book', $data);
         $this->load->view('friends', $data2);

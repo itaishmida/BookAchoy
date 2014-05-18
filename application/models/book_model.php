@@ -6,7 +6,14 @@
  * Time: 21:36
  */
 
-class book_model {
+class book_model extends CI_Model {
+
+    function __construct(){
+        parent::__construct();
+    }
+
+
+
     public function getFakeBooks()
     {
         $books = array(
@@ -89,7 +96,7 @@ class book_model {
 
     public function getFakeBook() {
         $books = $this->getFakeBooks();
-        $i = rand(0, count($books));
+        $i = rand(0, count($books)-1);
         $book = array(
             "name" => "סיפור על אהבה וחושך",
             "author" => "עמוס עוז",
@@ -98,5 +105,43 @@ class book_model {
            // "owners" => $owners
         );
         return $books[$i];
+    }
+
+    public function insertFakeBooks($id) {
+        $bookValues = '';
+        $ownValues = '';
+        $start = rand(0, 1000);
+        for ($i=$start; $i<$start+3; $i++) {
+            $bookValues .= '("' . $i . '", "Book' . $i . '", "Author' . $i . '", ""), ';
+            $ownValues .= '("' . $id . '", "' . $i . '", "' . date('Y-m-d') . '", 0), ';
+        }
+        $this->runQuery('INSERT INTO book (id, name, author, genre) VALUES ' . substr($bookValues, 0, -2) . ';');
+
+        $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ' . substr($ownValues, 0, -2) . ';');
+    }
+
+    public function getUserBooks($id) {
+        $queryStr = 'SELECT * FROM book WHERE id IN (SELECT book_id from users_owned_books WHERE user_id=' . $id . ');';
+        $query = $this->db->query($queryStr);
+        //echo '<BR><BR>getUserBooks: ' . $queryStr . ': <BR>';
+        //print_r($query->result());
+        return $query->result();
+    }
+
+
+    function runQuery($queryStr) {
+        try {
+            $this->db->query($queryStr);
+        } catch (Exception  $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+    }
+
+    function getOwners($bookId) {
+        $queryStr = 'SELECT * FROM user WHERE fbid IN (SELECT user_id FROM users_owned_books WHERE book_id=' . $bookId . ');';
+        $query = $this->db->query($queryStr);
+        //echo '<BR><BR>' . $queryStr . ': <BR>';
+        //print_r($query->result());
+        return $query->result();
     }
 } 
