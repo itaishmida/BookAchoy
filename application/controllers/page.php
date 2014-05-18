@@ -29,19 +29,32 @@ class Page extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function friends()
+    public function myFriends()
     {
         $this->load->model('login_model');
         $this->load->model('facebook_model');
         $this->load->model('user_model');
-        $data['title'] = "My Friends";
+
         $data['url'] = $this->facebook_model->getLoginUrl();
 
         $user = $this->login_model->getCurrentUser();
         $user = $user[0];
 
-        // retrieve friends from facebook, in the future will be in a batch
-        $this->user_model->updateFriends($user);
+        $data['title'] = "My Friends";
+        $data['friends'] = $this->user_model->getFriends($user);
+
+        $this->load->view('template/header');
+        $this->load->view('friends', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function friends($userId)
+    {
+        $this->load->model('user_model');
+
+        $user = $this->user_model->getUser($userId);
+        $user = $user[0];
+        $data['title'] = $user->name . "'s Friends";
 
         // retrieve friends from DB
         $data['friends'] = $this->user_model->getFriends($user->id);
@@ -63,16 +76,29 @@ class Page extends CI_Controller {
     }
 
     public function myBooks()
-    {
-        $this->load->model('facebook_model');
-        $this->load->model('book_model');
-        //$data['books'] = $this->book_model->getFakeBooks();
-        $facebookId = $this->facebook_model->getFacebookId();
+{
+    $this->load->model('facebook_model');
+    $this->load->model('book_model');
+    //$data['books'] = $this->book_model->getFakeBooks();
+    $facebookId = $this->facebook_model->getFacebookId();
+    $data['books'] = $this->book_model->getUserBooks($facebookId);
+    if ($data['books']==null) {
+        $this->book_model->insertFakeBooks($facebookId);
         $data['books'] = $this->book_model->getUserBooks($facebookId);
-        if ($data['books']==null) {
-            $this->book_model->insertFakeBooks($facebookId);
-            $data['books'] = $this->book_model->getUserBooks($facebookId);
-        }
+    }
+    $this->load->view('template/header');
+    $this->load->view('books', $data);
+    $this->load->view('template/footer');
+}
+
+    public function bookshelf($userId)
+    {
+        $this->load->model('book_model');
+        $this->load->model('user_model');
+        $data['books'] = $this->book_model->getUserBooks($userId);
+        $user = $this->user_model->getUser($userId);
+        $data['title'] = $user[0]["name"] . "'s books";
+
         $this->load->view('template/header');
         $this->load->view('books', $data);
         $this->load->view('template/footer');

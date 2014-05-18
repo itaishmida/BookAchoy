@@ -43,7 +43,7 @@
                                 <a href="<?php echo base_url("page/mybooks"); ?>">My Books</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url("page/friends"); ?>">My Friends</a>
+                                <a href="<?php echo base_url("page/myFriends"); ?>">My Friends</a>
                             </li>
 
 

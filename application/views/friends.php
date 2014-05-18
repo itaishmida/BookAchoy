@@ -53,7 +53,7 @@
                     $j = ($start + $i) % count($friends);
                      ?>
                     <Div class="col-md-2">
-                        <a href="https://www.facebook.com/<?php echo $friends[$j]->fbid; ?>" class="thumbnail">
+                        <a href="bookshelf/<?php echo $friends[$j]->id; ?>" class="thumbnail">
                                 <Img src="http://graph.facebook.com/<?php echo $friends[$j]->fbid; ?>/picture?width=150&height=150" width="150" height="150">
                                 <div class="caption">
                                     <H5><?php echo $friends[$j]->name; ?></H5>

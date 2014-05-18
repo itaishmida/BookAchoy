@@ -10,7 +10,7 @@
         <Div class="col-md-1"></Div>
         <Div class="col-md-10" style="border: 1">
             <Div class="row">
-                <H2>My Books</H2>
+                <H2><?php echo $title; ?></H2>
 
 <?php           for ($i = 0; $i < count($books); $i++): ?>
                     <Div class="col-md-2">

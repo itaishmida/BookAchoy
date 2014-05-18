@@ -26,6 +26,7 @@ class login_model extends CI_Model {
         if ($user == null) {
             $fbuser = $this->facebook_model->getBasicInfo();
             $this->user_model->insertUser($fbuser);
+            $this->user_model->updateFriends($user);
             $user = $this->user_model->getUserByFacebookId($facebookId);
         }
         return $user;
