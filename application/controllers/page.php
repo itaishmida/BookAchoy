@@ -81,6 +81,7 @@ class Page extends CI_Controller {
     $this->load->model('book_model');
     //$data['books'] = $this->book_model->getFakeBooks();
     $facebookId = $this->facebook_model->getFacebookId();
+    $data['title'] = "My books";
     $data['books'] = $this->book_model->getUserBooks($facebookId);
     if ($data['books']==null) {
         $this->book_model->insertFakeBooks($facebookId);
@@ -108,14 +109,17 @@ class Page extends CI_Controller {
     {
         echo $bookId;
         $this->load->model('book_model');
-        $data['book'] = $this->book_model->getFakeBook();
+        $this->load->model('user_model');
         $this->load->model('facebook_model');
-        $data2['title'] = "Friends who has this book";
-        $data2['url'] = $this->facebook_model->getLoginUrl();
-        $data2['friends'] = $this->book_model->getOwners(253);
+
+        $data['book'] = $this->book_model->getBook($bookId);
+        $data['book'] = $data['book'][0];
+        $friendsData['title'] = "Friends who has this book";
+        $friendsData['url'] = $this->facebook_model->getLoginUrl();
+        $friendsData['friends'] = $this->book_model->getOwners(253);
         $this->load->view('template/header');
         $this->load->view('book', $data);
-        $this->load->view('friends', $data2);
+        $this->load->view('friends', $friendsData);
         $this->load->view('template/footer');
     }
 

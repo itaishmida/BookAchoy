@@ -13,6 +13,13 @@ class book_model extends CI_Model {
     }
 
 
+    function getBook($id) {
+        $query = $this->db->query('SELECT * FROM book WHERE id = ' . $id);
+        if ($query!=null)
+            return $query->result_array();//array
+        else
+            return getFakeBook();
+    }
 
     public function getFakeBooks()
     {
