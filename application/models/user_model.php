@@ -11,7 +11,14 @@ class User_model extends CI_Model {
         return $query->result_array();//array
     }
 
+    function getAllUsers() {
+        $query = $this->db->query('SELECT id, fbid, name FROM user');
+        return $query->result_array();//array
+    }
+
     function getUserByFacebookId($fbid) {
+        //print_r('<BR>enter getUserByFacebookId');
+        //print_r($fbid);
         $query = $this->db->query('SELECT * FROM user WHERE fbid = ' . $fbid);
         return $query->result();//array
     }
@@ -25,11 +32,20 @@ class User_model extends CI_Model {
         return $query->result();//array
     }
 
+    function getAllFriends() {
+        $query = $this->db->query('SELECT user_id, friend_id FROM users_friends');
+        if ($query==null)
+            return null;
+        return $query->result();//array
+    }
+
     /*
      * insert friendship between users and a list of friends
      * TODO: remove currently friends from the list, to avoid duplication
      */
     function updateFriends($user) {
+        if ($user==null)
+            return;
         $this->load->model('facebook_model');
         $facebook_friends = $this->facebook_model->getFriends();
         if (count($facebook_friends)==0)
@@ -42,12 +58,17 @@ class User_model extends CI_Model {
         }
         // prepare list
         $values = '';
+        $userId = $user[0]->id;
         foreach ($friends as $friend) {
-            $values .= '("' . $user->id . '", "' . $friend->id . '"), ';
-            $values .= '("' . $friend->id . '", "' . $user->id . '"), ';
+            $friendId = $friend->id;
+            $values .= '("' . $userId . '", "' . $friendId . '"), ';
+            $values .= '("' . $friendId . '", "' . $userId . '"), ';
         }
-        // insert to DB
-        $this->runQuery('INSERT INTO users_friends (user_id, friend_id) VALUES ' . substr($values, 0, -2) . ';');
+        // delete current friendships and insert the updated ones
+        $queryStr = 'DELETE FROM users_friends WHERE user_id='.$userId.' OR friend_id='.$userId.';';
+        $this->runQuery($queryStr);
+        $queryStr = 'INSERT INTO users_friends (user_id, friend_id) VALUES ' . substr($values, 0, -2) . ';';
+        $this->runQuery($queryStr);
     }
 
     function getUsersByFacebookIds($facebook_friends) {
@@ -69,21 +90,17 @@ class User_model extends CI_Model {
     }
 
     function getFakeUser() {
-        $fakeUser = get_user(676039134);
-        if ($fakeUser == null) {
-            $fakeFacebookUser = array(
+        $fakeFacebookUser = array(
                 "name" => "Shai Fisher (fake)‎‏‏",
                 "email" => "shai.fisher@gmail.com",
                 "fbid" => "676039134"
                 );
-            $this->insertUser($fakeFacebookUser);
-            return get_user(1);
-        }
-        return $fakeUser;
+        return $fakeFacebookUser;
     }
 
-    function updateFriendsFromFacebook() {
-
+    function deleteUser($id) {
+        $this->runQuery('DELETE FROM user WHERE id=' . $id);
+        $this->runQuery('DELETE FROM user WHERE id="' . $id . '"');
     }
 
     /************************ Test Methods *********************************/

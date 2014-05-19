@@ -13,13 +13,6 @@
     <title>demo</title>
 </head>
 <body>
-<?php //print_r($url); ?>
-<?php //print_r($friends); ?>
-<?php //print_r($user); ?>
-<?php //print_r($date); ?>
-<?php //print_r($debug); ?>
-
-
 
 
 
@@ -53,7 +46,7 @@
                     $j = ($start + $i) % count($friends);
                      ?>
                     <Div class="col-md-2">
-                        <a href="../bookshelf/<?php echo $friends[$j]->id; ?>" class="thumbnail">
+                        <a href="/page/bookshelf/<?php echo $friends[$j]->id; ?>" class="thumbnail">
                                 <Img src="http://graph.facebook.com/<?php echo $friends[$j]->fbid; ?>/picture?width=150&height=150" width="150" height="150">
                                 <div class="caption">
                                     <H5><?php echo $friends[$j]->name; ?></H5>

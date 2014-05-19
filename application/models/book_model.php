@@ -127,8 +127,8 @@ class book_model extends CI_Model {
         $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ' . substr($ownValues, 0, -2) . ';');
     }
 
-    public function getUserBooks($id) {
-        $queryStr = 'SELECT * FROM book WHERE id IN (SELECT book_id from users_owned_books WHERE user_id=' . $id . ');';
+    public function getUserBooks($userId) {
+        $queryStr = 'SELECT * FROM book WHERE id IN (SELECT book_id from users_owned_books WHERE user_id='.$userId.');';
         $query = $this->db->query($queryStr);
         //echo '<BR><BR>getUserBooks: ' . $queryStr . ': <BR>';
         //print_r($query->result());
@@ -145,7 +145,7 @@ class book_model extends CI_Model {
     }
 
     function getOwners($bookId) {
-        $queryStr = 'SELECT * FROM user WHERE fbid IN (SELECT user_id FROM users_owned_books WHERE book_id=' . $bookId . ');';
+        $queryStr = 'SELECT * FROM user WHERE id IN (SELECT user_id FROM users_owned_books WHERE book_id='.$bookId.');';
         $query = $this->db->query($queryStr);
         //echo '<BR><BR>' . $queryStr . ': <BR>';
         //print_r($query->result());

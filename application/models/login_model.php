@@ -17,13 +17,19 @@ class login_model extends CI_Model {
 
         // get facebook id
         $facebookId = $this->facebook_model->getFacebookId();
-        if ($facebookId != 0)
+        //print_r($facebookId);
+        if ($facebookId != 0) {
             $user = $this->user_model->getUserByFacebookId($facebookId);
-        else
+            $this->user_model->updateFriends($user);
+            //$this->user_model->deleteFakeUser();
+        } else
             $user = $this->user_model->getFakeUser();
-
+        //print_r('<BR>user: ');
+        //print_r($user);
         // if is new user, insert to DB
+
         if ($user == null) {
+            //print_r('<BR>insert new user');
             $fbuser = $this->facebook_model->getBasicInfo();
             $this->user_model->insertUser($fbuser);
             $this->user_model->updateFriends($user);
