@@ -2,11 +2,14 @@
 
 class Page extends CI_Controller {
 
+
+
 	public function index()
 	{
-
-        $this->load->view('template/header');
-        $this->load->view('main');
+        $this->load->model('facebook_model');
+        $data['fbLogin'] = $this->facebook_model->getLoginUrl();
+        $this->load->view('template/header',$data);
+        $this->load->view('main',$data);
         $this->load->view('template/footer');
 
 	}

@@ -21,12 +21,17 @@ class facebook_model extends CI_Model {
         $this->load->library('Facebook', $config);
     }
 
+    public function logout()
+    {
+        $this->facebook->destroySession();     
+    }
     public function getLoginUrl() {
         //return ""; // for test
         $userId = $this->facebook->getUser();
         if($userId == 0)
-            return $this->facebook->getLoginUrl(array('scope'=>'email'));
-        return "";
+            return $this->facebook->getLoginUrl(array('scope'=>'email,user_friends'));
+        $params = array("next" => base_url("user/logout"));
+        return $this->facebook->getLogoutUrl($params);
     }
 
     public function getFriends() {
@@ -37,6 +42,23 @@ class facebook_model extends CI_Model {
             return $temp["data"];
         }
         return $this->getFakeFriends();
+    }
+    public function getUser()
+    {
+        $user = $this->facebook->getUser();
+
+        if ($user) {
+            try {
+                $data['user_profile'] = $this->facebook
+                    ->api('/me');
+            } catch (FacebookApiException $e) {
+                $user = null;
+            }
+        }
+
+
+       return $user;
+
     }
 
     public function getSomeFriends($numOfFriends)

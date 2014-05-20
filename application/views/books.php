@@ -14,7 +14,7 @@
 
 <?php           for ($i = 0; $i < count($books); $i++): ?>
                     <Div class="col-md-2">
-                        <a href="book?id=<?php echo $books[$i]["id"]; ?>" class="thumbnail">
+                        <a href="book?id=<?php echo $i ?>" class="thumbnail">
                             <Img src="<?php echo $books[$i]["picUrl"]; ?>&zoom=1" height="200">
                             <Div class="caption" style="text-align: right">
                                 <H4><?php echo $books[$i]["name"] . " / " . $books[$i]["author"]; ?></H4>
