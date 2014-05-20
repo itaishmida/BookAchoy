@@ -25,6 +25,14 @@ class facebook_model extends CI_Model {
     {
         $this->facebook->destroySession();     
     }
+    public function getFacebookId() {
+        $facebookId = $this->facebook->getUser();
+        if ($facebookId == 0)
+            return 676039134;
+        else
+            return $facebookId;
+    }
+
     public function getLoginUrl() {
         //return ""; // for test
         $userId = $this->facebook->getUser();
@@ -33,6 +41,19 @@ class facebook_model extends CI_Model {
         $params = array("next" => base_url("user/logout"));
         return $this->facebook->getLogoutUrl($params);
     }
+
+    public function getBasicInfo() {
+        if($this->facebook->getUser() != 0)
+            return $this->facebook->api('/me?fields=name,email');
+
+        // fake data
+        return array(
+            "name" => "Shai (fake) Fisher",
+            "email" => "shai.fisher@gmail.com",
+            "id" => "676039134",
+        );
+    }
+
 
     public function getFriends() {
         //return $this->getFakeFriends(); // for test

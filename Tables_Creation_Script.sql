@@ -42,12 +42,15 @@ DROP TABLE IF EXISTS `book`, `user`;
 DROP TABLE IF EXISTS `book`;
 CREATE TABLE IF NOT EXISTS `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `google_id` varchar(20) CHARACTER SET latin1 NOT NULL,
   `name` varchar(120) CHARACTER SET latin1 NOT NULL,
   `author` varchar(120) CHARACTER SET latin1 NOT NULL,
   `genre` varchar(100) CHARACTER SET latin1 NOT NULL,
   `overall_rating` tinyint(4) NOT NULL,
+  `isbn` varchar(20) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
+  KEY `author` (`author`),
   KEY `genre` (`genre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
