@@ -5,6 +5,11 @@
  * */
 define("SITE_NAME","bookAchoy");
 
+//USER MODEL LEVELS
+define("ADMIN_USER","10");
+define("ACTIVE","1");
+define("SUSPENDED","0");
+
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

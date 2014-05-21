@@ -12,7 +12,9 @@
     <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <!-- Optional theme -->
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+<!--        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">-->
+
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/custom_bootstrap.css')?>">
     <!-- Latest compiled and minified JavaScript -->
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
@@ -53,6 +55,7 @@
                         <ul class="nav navbar-nav navbar-right">
                            <li class="active">
                                <a href="<?php echo base_url("page/how_it_works"); ?>">How It Works?</a>
+                               <a href="<?php echo $fbLogin; ?>">Login?</a>
                            </li>
                         </ul>
                     </div>

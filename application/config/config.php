@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/Bookachoy/';
+$config['base_url']	= 'http://bookachoy.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -226,7 +226,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = '935f533e830bb990d4020733ea8006a3';
 
 /*
 |--------------------------------------------------------------------------
