@@ -17,20 +17,6 @@
 
 
 
-
-<!-- *********************** Facebook login button ************************************ -->
-
-<Div class="row">
-    <Div class="col-md-1"></Div>
-    <Div class="col-md-10" style="border: 1">
-        <?php if ($url!=""): ?>
-            <a href="<?php echo $url; ?>">Click here to login</a><BR>
-        <?php endif ?>
-    </Div>
-</Div>
-
-
-
 <!-- *********************** Friends list ************************************ -->
 
 <?php
