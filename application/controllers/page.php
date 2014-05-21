@@ -77,13 +77,13 @@ class Page extends CI_Controller {
         $this->load->model('login_model');
         $this->load->model('facebook_model');
         $this->load->model('book_model');
-        //$data['books'] = $this->book_model->getFakeBooks();
+
         $user = $this->login_model->getCurrentUser();
-        //$facebookId = $this->facebook_model->getFacebookId();
+
         $data['title'] = "My books";
         $data['books'] = $this->book_model->getUserBooks($user[0]->id);
         if ($data['books']==null) {
-            $this->book_model->insertFakeBooks($user[0]->id);
+            $this->book_model->insertFakeBooksToUserBookshelf($user[0]->id);
             $data['books'] = $this->book_model->getUserBooks($user[0]->id);
         }
         $this->load->view('template/header');

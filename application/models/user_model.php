@@ -41,7 +41,6 @@ class User_model extends CI_Model {
 
     /*
      * insert friendship between users and a list of friends
-     * TODO: remove currently friends from the list, to avoid duplication
      */
     function updateFriends($user) {
         if ($user==null)

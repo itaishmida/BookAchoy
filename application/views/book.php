@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <a href="http://books.google.co.il/books?id=<?php echo $book["id"]; ?>" target="_blank">
-                        <img src="http://bks5.books.google.com/books?id=<?php echo $book["genre"]; ?>&printsec=frontcover&img=1&zoom=0&edge=curl&source=gbs_api" class="img-responsive">
+                        <img src="http://bks5.books.google.com/books?id=<?php echo $book["google_id"]; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" class="img-responsive">
                     </a>
                 </div>
                 <div class="col-md-9">

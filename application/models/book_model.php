@@ -21,83 +21,75 @@ class book_model extends CI_Model {
             return getFakeBook();
     }
 
-    public function getFakeBooks()
+    public function insertFakeBooks()
     {
         $books = array(
             0 => array(
-                "name" => "סיכום ביניים",
-                "author" => "דוד אבידן",
-                "googleBooksId" => "qYcdAAAAIAAJ",
-                "picUrl" => "http://bks2.books.google.co.il/books?id=qYcdAAAAIAAJ&printsec=frontcover&img=1&imgtk=AFLRE70VW5wcR87EV6g2VUrtCR1Tks98Jft0IbXU9L1jfEF2aSxUlJhbudguTEmImOVeOzNWdHt6U6U6bqTBUXmv_lITekk2K81_eZ9p-gIgU3IIdQ9_GaM"
+                "name" => "Around the world in eighty days",
+                "author" => "Jules Verne",
+                "googleBooksId" => "SAoCAAAAQAAJ",
             ),
             1 => array(
-                "name" => "דמי מפתח",
-                "author" => "יהלי סובול",
-                "googleBooksId" => "Vqq03MSd7QsC",
-                "picUrl" => "http://bks1.books.google.co.il/books?id=Vqq03MSd7QsC&printsec=frontcover&img=1&imgtk=AFLRE72jcn3E2eqxBp_FNWbfJ04QSIiscyqU39fjOo1M26QJTr4XqhcBTbsQ5F8PzdBZzVv6P17RNcvMNZROopboo7-9BnaPdPImJpcEItvYb0IOLxrQnzpvCR71HX4xsw5uoQYtlzOy"
+                "name" => "Sanctuary",
+                "author" => "Edith Wharton",
+                "googleBooksId" => "WKLPETOoieIC",
             ),
             2 => array(
-                "name" => "סיפור על אהבה וחושך",
-                "author" => "עמוס עוז",
-                "googleBooksId" => "YD_IqvIbjkUC",
-                "picUrl" => "http://bks0.books.google.co.il/books?id=YD_IqvIbjkUC&printsec=frontcover&img=1&edge=curl&imgtk=AFLRE71sVh-_D-ApUZco1Yqq2k6gYN4j93V_jlatVE6ovHdP25oxYsIpNhIVVnkCc08MQqVtYnc715JlFYI2QFDOwLmBTI4rWDgBi76D8H58rt2Vv_h8GrRG_3z7yHz8-QQJBpl95fMG"
+                "name" => "The Secret Garden",
+                "author" => "Frances Hodgson Burnett",
+                "googleBooksId" => "7GM4AAAAMAAJ",
             ),
             3 => array(
-                "name" => "ארבעה בתים וגעגוע",
-                "author" => "אשכול נבו",
-                "googleBooksId" => "jdJSk9QnjqcC",
-                "picUrl" => "http://bks5.books.google.co.il/books?id=jdJSk9QnjqcC&printsec=frontcover&img=1&imgtk=AFLRE71XGgl5a5ti2rLWEtHmBL5p4y7wSptdepxJlBJoWBqfGuyFhnG4j5RKv2NqNDo3OyAfR5yXN7_40Pocb65Ay-xEN3kt3Ylz-UD30hCEngKe5RDB9T15_5FirYTu3qIHUrcMPnVH"
+                "name" => "Penrod",
+                "author" => "Booth Tarkington",
+                "googleBooksId" => "zm8RAAAAYAAJ",
             ),
             4 => array(
-                "name" => "אם יש גן עדן",
-                "author" => "רון לשם",
-                "googleBooksId" => "a8-RcuGzYRUC",
-                "picUrl" => "http://bks9.books.google.co.il/books?id=a8-RcuGzYRUC&printsec=frontcover&img=1&imgtk=AFLRE73ECLO8RFXhY_jycIqg-do32FPiUOO2WNzogZEMAwqnk_St86onODrHhJrMpx9lQE9U8wY-Ow46h1vqmx2lvT1Jadoqu_DrMq_PSc3s6kmYef36Y9KzwzX4Pye0NospTQVibm1J"
+                "name" => "Pollyanna",
+                "author" => "Eleanor Hodgman Porter",
+                "googleBooksId" => "v8IRAAAAYAAJ",
             ),
             5 => array(
-                "name" => "אשתו של הנוסע בזמן",
-                "author" => "אודרי ניפנגר",
-                "googleBooksId" => "VYUAu9X_LywC",
-                "picUrl" => "http://bks0.books.google.co.il/books?id=VYUAu9X_LywC&printsec=frontcover&img=1&imgtk=AFLRE72xsNf2NPnfW0cykRTtmDyb5s7I3_kqrW1sTMC5PUHKET0IXSDY3p9d_8VtrJj56ny77IB3ICaY2wCAtzPKzgWDAAyYeQOJP5JqwFe1GgcsY15S7ktLD1NhhU0eJpo5bA9-Cj5Y"
+                "name" => "Heidi",
+                "author" => "Johanna Spyri",
+                "googleBooksId" => "1G0jAAAAMAAJ",
             ),
             6 => array(
-                "name" => "הידרומניה",
-                "author" => "אסף גברון",
-                "googleBooksId" => "7EgLAQAAMAAJ",
-                "picUrl" => "http://bks6.books.google.co.il/books?id=7EgLAQAAMAAJ&printsec=frontcover&img=1&imgtk=AFLRE71BA0KyEvi0EHlTCkFJU9VvL8ZPByEu5kEXwkV1K3nfnJOYSTM63w4DiZ6McILEzxngME8GlvNsJKtkvWXgPhyMq15pzWnLD5fCZvUiaocM7QZSO9s"
+                "name" => "Little Women",
+                "author" => "Arc Manor",
+                "googleBooksId" => "MMwBZaorBHkC",
             ),
             7 => array(
-                "name" => "בשבילה גיבורים עפים",
-                "author" => "אמיר גוטפרוינד",
-                "googleBooksId" => "FUoLAQAAMAAJ",
-                "picUrl" => "http://bks2.books.google.co.il/books?id=FUoLAQAAMAAJ&printsec=frontcover&img=1&imgtk=AFLRE70jurjJEqx4YP3akhXI_eHDXkzWEqoxAzuTHTvlJhs7xa8mlNgN7ewcdExbleVYdAR-7gizwOMrVEspmuYrishxpy_CFlDxttsjeEp6OcvBLxtMmVk"
+                "name" => "Within the Song to Live",
+                "author" => "Nathan Yonathan",
+                "googleBooksId" => "vbNPkVVEYoYC",
             ),
             8 => array(
-                "name" => "יונה ונער",
-                "author" => "מאיר שלו",
-                "googleBooksId" => "MjsOAAAAYAAJ",
-                "picUrl" => "http://bks8.books.google.co.il/books?id=MjsOAAAAYAAJ&printsec=frontcover&img=1&imgtk=AFLRE71uc4_9F4NE37g-GorTC1TbaWqHgkD7Xypys8bHzkZEIB7chw96dTmvygLluOMS3kz7p-aEO5sfa8LsBiCzwTV0LTv4Wk5V62s9Yku6vX42DoK-PYE"
+                "name" => "Ben and the bear",
+                "author" => "Chris Riddell",
+                "googleBooksId" => "qVkhHcbtXjIC",
             ),
             9 => array(
-                "name" => "עולם חדש, מופלא",
-                "author" => "אלדוס האקסלי",
-                "googleBooksId" => "GXG1C_7J91IC",
-                "picUrl" => "http://bks2.books.google.co.il/books?id=GXG1C_7J91IC&printsec=frontcover&img=1&imgtk=AFLRE715O8RC94EepOsTygh-FN4UduyQyKOWFordIEzhfko8zivtDAP4WrgSqXZ4lD9VBBihSQarqADZjzGBDDdjLxu___LWFql-9AnLceBwrMQ3BBSxlcQyF77eBbiNfBWw4zt70g32"
+                "name" => "The Star of David and the War of Gog and Magog",
+                "author" => "Joseph Shoshani",
+                "googleBooksId" => "cxZllaF8gMYC",
             ),
             10 => array(
-                "name" => "קפקא על החוף",
-                "author" => "הרוקו מורקמי",
-                "googleBooksId" => "am-w2EDj0mEC",
-                "picUrl" => "http://bks2.books.google.co.il/books?id=am-w2EDj0mEC&printsec=frontcover&img=1&edge=curl&imgtk=AFLRE73fswmf2hd-2KkLGGMFlMblsoDyM_KsZm7nRGrOUBlZqBkJJSvhnfZx2dGm5qn9AQQyjvC9kgHYhSykHuKhJ11ZgvY_yTXnEo1ChBPRz0DG6JO2FJXNjSm4jDT1I5XHrlvLTgpb"
+                "name" => "A Reliable Wife",
+                "author" => "Robert Goolrick",
+                "googleBooksId" => "q1EPx-ceN78C",
             ),
             11 => array(
-                "name" => "סולאריס",
-                "author" => "סטניסלב לם",
-                "googleBooksId" => "uMF7Nd52SdAC",
-                "picUrl" => "http://bks1.books.google.co.il/books?id=uMF7Nd52SdAC&printsec=frontcover&img=1&edge=curl&imgtk=AFLRE715Y-wsompz8W-iptOm1QY4B-rKVMokZqubVGZdZ_R20AD2BCP3AX1i3PXsWJTUTUmAXZQkg78TKuqssI8Mm1k04YlZvda9boUY2cE-N1dMuqjNZXi3J54DB24QRlNZYoHjEeeM"
+                "name" => "Alexandra",
+                "author" => "Valerie Martin",
+                "googleBooksId" => "7cS_1K3HoMQC",
             )
         );
-        return $books;
+        $bookValues = '';
+        foreach ($books as $book) {
+            $bookValues .= '("'.$book['googleBooksId'].'", "'.$book['name'].'", "'.$book['author'].'"), ';
+        }
+        $this->runQuery('INSERT INTO book (google_id, name, author) VALUES ' . substr($bookValues, 0, -2) . ';');
     }
 
 
@@ -114,15 +106,20 @@ class book_model extends CI_Model {
         return $books[$i];
     }
 
-    public function insertFakeBooks($id) {
-        $bookValues = '';
-        $ownValues = '';
-        $start = rand(0, 1000);
-        for ($i=$start; $i<$start+3; $i++) {
-            $bookValues .= '("' . $i . '", "Book' . $i . '", "Author' . $i . '", ""), ';
-            $ownValues .= '("' . $id . '", "' . $i . '", "' . date('Y-m-d') . '", 0), ';
+    public function insertFakeBooksToUserBookshelf($id) {
+        //$this->db->query('delete FROM users_owned_books');
+        //$this->db->query('delete FROM book');
+        $books = $this->db->query('SELECT * FROM book')->result();
+        if ($books==null) {
+            echo "no books";
+            $this->insertFakeBooks();
+            return;
         }
-        $this->runQuery('INSERT INTO book (id, name, author, genre) VALUES ' . substr($bookValues, 0, -2) . ';');
+        //print_r($books);
+        $book1 = $books[rand(0, count($books))];
+        $book2 = $books[rand(0, count($books))];
+        $ownValues = '("'.$id.'", "'.$book1->id.'", "'.date('Y-m-d').'", 0), ';
+        $ownValues .= '("'.$id.'", "'.$book2->id.'", "'.date('Y-m-d').'", 0), ';
 
         $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ' . substr($ownValues, 0, -2) . ';');
     }
