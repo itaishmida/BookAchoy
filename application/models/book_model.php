@@ -14,11 +14,17 @@ class book_model extends CI_Model {
 
 
     function getBook($id) {
-        $query = $this->db->query('SELECT * FROM book WHERE id = ' . $id);
-        if ($query!=null)
-            return $query->result_array();//array
-        else
-            return getFakeBook();
+        $books = $this->db->query('SELECT * FROM book WHERE id = ' . $id)->result_array();
+        if ($books!=null)
+            return $books[0];
+        return null;
+    }
+
+    function getBookByGoogleId($googleBookId) {
+        $books = $this->db->query('SELECT * FROM book WHERE google_id="'.$googleBookId.'"')->result_array();
+        if ($books!=null)
+            return $books[0];
+        return null;
     }
 
     public function insertFakeBooks()
@@ -147,5 +153,88 @@ class book_model extends CI_Model {
         //echo '<BR><BR>' . $queryStr . ': <BR>';
         //print_r($query->result());
         return $query->result();
+    }
+
+    function addBook($google_id, $name, $author, $isbn) {
+        $book = $this->getBookByGoogleId($google_id);
+        if ($book==null)
+            $this->runQuery('INSERT INTO book (google_id, name, author, isbn) VALUES ("'.$google_id.'","'.$name.'","'.$author.'","'.$isbn.'");');
+    }
+
+    function addBookToUser($userId, $bookId) {
+        $own = $this->db->query('SELECT * FROM users_owned_books WHERE user_id='.$userId.' AND book_id='.$bookId)->result();
+        if ($own==null)
+            $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ("'.$userId.'", "'.$bookId.'", "'.date('Y-m-d').'", 0);');
+    }
+
+    function addBookFromGoogle($googleBookId) {
+        $this->load->model('google_model');
+
+        $book = $this->getBookByGoogleId($googleBookId);
+        if ($book == null) {
+            $googleBook = $this->google_model->getBookDetails($googleBookId);
+            // maybe the id that will return is different
+            $book = $this->getBookByGoogleId($googleBook['google_id']);
+            if ($book == null) {
+                $this->addBook($googleBook['google_id'], $googleBook['name'], $googleBook['author'], $googleBook['isbn']);
+                $book = $this->getBookByGoogleId($googleBook['google_id']);
+            }
+        }
+        return $book['id'];
+    }
+
+    function addBookToUserByGoogleId($userId, $googleBookId) {
+        $bookId = $this->addBookFromGoogle($googleBookId);
+        $this->addBookToUser($userId, $bookId);
+    }
+
+    function test_addBook() {
+        $googleBookId = '3jfc-Fc1xdsC';
+
+
+        // remove book from DB
+        $book = $this->getBookByGoogleId($googleBookId);
+        if ($book != null) {
+            $this->db->query('DELETE FROM users_owned_books WHERE book_id="'.$book['id'].'"');
+            $this->db->query('DELETE FROM book WHERE google_id="'.$googleBookId.'"');
+            $book = $this->getBookByGoogleId($googleBookId);
+        }
+        assert('$book==null');
+
+        // test get details from google books
+        $this->load->model('google_model');
+        $googleBook = $this->google_model->getBookDetails($googleBookId);
+        $name = 'Struggling Over Israel\'s Soul: An IDF General Speaks of His Controversial ...';
+        $author = 'Elazar Stern';
+        $isbn = 'ISBN9652295760';
+        $assertion = assert('$googleBook[\'google_id\'] == $googleBookId');
+        $assertion = assert('$googleBook[\'name\'] == $name');
+        $assertion &= assert('$googleBook[\'author\'] == $author');
+        $assertion &= assert('$googleBook[\'isbn\'] == $isbn');
+        if ($assertion)
+            print_r('<H2>Get book details from google: test success.</H2>');
+
+        // test addition to db
+        $bookId = $this->addBookFromGoogle($googleBookId);
+        $assertion = assert($bookId!=null);
+        $book = $this->getBook($bookId);
+        $assertion &= assert('$book[\'name\'] == $googleBook[\'name\']');
+        $assertion &= assert('$book[\'author\'] == $googleBook[\'author\']');
+        $assertion &= assert('$book[\'isbn\'] == $googleBook[\'isbn\']');
+        if ($assertion)
+            print_r('<H2>Add book to databse: test success.</H2>');
+
+        // test add book to user
+        $this->load->model('user_model');
+        $user = $this->user_model->getFakeUser();
+        $userId = $user->id;
+        $this->addBookToUser($userId, $bookId);
+        $books = $this->getUserBooks($userId);
+        if (assert('$books[0]->id = $bookId'))
+            print_r('<H2>Add book to User: test success.</H2>');
+
+        // clean data
+        $this->db->query('DELETE FROM users_owned_books WHERE book_id="'.$bookId.'"');
+        $this->db->query('DELETE FROM book WHERE google_id="'.$googleBookId.'"');
     }
 } 

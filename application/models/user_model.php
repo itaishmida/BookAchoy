@@ -14,7 +14,7 @@ class User_model extends CI_Model {
             "fbid" => $fbid,
             "name" => $name,
             "email" => $email,
-            "aact_status" => ACTIVE,
+            "acct_status" => ACTIVE,
             "join_date" => time()
         );
         $this->db->insert('user',$row);
@@ -34,6 +34,7 @@ class User_model extends CI_Model {
                 return false;
         }
         return false;
+    }
 
     function getAllUsers() {
         $query = $this->db->query('SELECT id, fbid, name FROM user');
@@ -41,17 +42,18 @@ class User_model extends CI_Model {
     }
 
     function getUserByFacebookId($fbid) {
-        //print_r('<BR>enter getUserByFacebookId');
-        //print_r($fbid);
-        $query = $this->db->query('SELECT * FROM user WHERE fbid = ' . $fbid);
-        return $query->result();//array
+        $users = $this->db->query('SELECT * FROM user WHERE fbid = ' . $fbid)->result();
+        if ($users!=null)
+            return $users[0];
+        return null;
     }
 
-    function get_user($fbid)
+    function get_user($id)
     {
-        $query = $this->db->query('SELECT * FROM user WHERE fbid = ' . $fbid);
-
-        return $query->result_array();//array
+        $users = $this->db->query('SELECT * FROM user WHERE id = '.$id)->result();
+        if ($users!=null)
+            return $users[0];
+        return null;
     }
 
 
@@ -108,7 +110,7 @@ class User_model extends CI_Model {
         }
         // prepare list
         $values = '';
-        $userId = $user[0]->id;
+        $userId = $user->id;
         foreach ($friends as $friend) {
             $friendId = $friend->id;
             $values .= '("' . $userId . '", "' . $friendId . '"), ';
@@ -140,12 +142,12 @@ class User_model extends CI_Model {
     }
 
     function getFakeUser() {
-        $fakeFacebookUser = array(
-                "name" => "Shai Fisher (fake)‎‏‏",
-                "email" => "shai.fisher@gmail.com",
-                "fbid" => "676039134"
-                );
-        return $fakeFacebookUser;
+        $user = $this->getUserByFacebookId('9999');
+        if ($user==null) {
+            $this->add_user('9999','Test User', 'test@test.com');
+            $user = $this->user_model->getUserByFacebookId('9999');
+        }
+        return $user;
     }
 
     function deleteUser($id) {
@@ -153,9 +155,4 @@ class User_model extends CI_Model {
         $this->runQuery('DELETE FROM user WHERE id="' . $id . '"');
     }
 
-    /************************ Test Methods *********************************/
-
-    function test_userInDB () {
-
-    }
 }

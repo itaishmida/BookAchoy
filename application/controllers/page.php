@@ -41,7 +41,7 @@ class Page extends CI_Controller {
         $data['debug'] = 'debug: ';
         //$data['url'] = $this->facebook_model->getLoginUrl();
         $user = $this->login_model->getCurrentUser();
-        $user = $user[0];
+        $user = $user;
         $data['user'] = $user;
         $data['title'] = "My Friends";
         $data['friends'] = $this->user_model->getFriends($user);
@@ -76,14 +76,15 @@ class Page extends CI_Controller {
         $user = $this->login_model->getCurrentUser();
 
         $data['title'] = "My books";
-        $data['books'] = $this->book_model->getUserBooks($user[0]->id);
+        $data['books'] = $this->book_model->getUserBooks($user->id);
         if ($data['books']==null) {
-            $this->book_model->insertFakeBooksToUserBookshelf($user[0]->id);
-            $data['books'] = $this->book_model->getUserBooks($user[0]->id);
+            $this->book_model->insertFakeBooksToUserBookshelf($user->id);
+            $data['books'] = $this->book_model->getUserBooks($user->id);
         }
         $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
         $this->load->view('template/header',$dataHeader);
         $this->load->view('books', $data);
+        $this->load->view('addBook');
         $this->load->view('template/footer');
     }
 
@@ -93,8 +94,8 @@ class Page extends CI_Controller {
         $this->load->model('user_model');
         $this->load->model('facebook_model');
         $data['books'] = $this->book_model->getUserBooks($userId);
-        $user = $this->user_model->getUser($userId);
-        $data['title'] = $user[0]["name"] . "'s books";
+        $user = $this->user_model->get_user($userId);
+        $data['title'] = $user->name."'s books";
 
         $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
         $this->load->view('template/header',$dataHeader);
@@ -109,7 +110,7 @@ class Page extends CI_Controller {
         $this->load->model('facebook_model');
 
         $data['book'] = $this->book_model->getBook($bookId);
-        $data['book'] = $data['book'][0];
+        $data['book'] = $data['book'];
         $friendsData['title'] = "Friends who has this book";
         $friendsData['friends'] = $this->book_model->getOwners($data['book']['id']);
         $friendsData['url'] = '';
@@ -121,6 +122,17 @@ class Page extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function addBook($googleBookId) {
+        $this->load->model('login_model');
+        $this->load->model('book_model');
+        $this->load->model('google_model');
+        $user = $this->login_model->getCurrentUser();
+        $userId = $user->id;
+        $book = $this->google_model->getBookDetails($googleBookId);
+        $data['bookDetails'] = $this->book_model->addBookToUserByGoogleId($userId, $googleBookId);
+        $this->myBooks();
+    }
+
     public function newsfeed()
     {
         $this->load->model('user_model');
@@ -130,5 +142,9 @@ class Page extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function test_addBook() {
+        $this->load->model('book_model');
+        $this->book_model->test_addBook();
+    }
 }
 
