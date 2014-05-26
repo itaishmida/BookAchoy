@@ -1,31 +1,50 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Owner
- * Date: 24/04/14
- * Time: 21:50
- */
-?>
-    <Div class="row">
-        <Div class="col-md-1"></Div>
-        <Div class="col-md-10" style="border: 1">
-            <Div class="row">
-                <H2><?php echo $title; ?></H2>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-header">
+                <h1>
+                    My Bookshelf
+                </h1>
+            </div>
+            <?php for ($i = 0;
+                       $i < count($books);
+                       $i++): ?>
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <Img
+                                src="http://bks5.books.google.com/books?id=<?php echo $books[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                                class="img-rounded" style="min-height:180px;height:180px;">
 
-<?php           for ($i = 0; $i < count($books); $i++): ?>
-                    <Div class="col-md-2">
-                        <a href="/page/book/<?php echo $books[$i]->id; ?>" class="thumbnail">
-                            <Img src="http://bks5.books.google.com/books?id=<?php echo $books[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" height="200">
-                            <Div class="caption" style="text-align: right">
-                                <H4><?php echo $books[$i]->name . " / " . $books[$i]->author; ?></H4>
-                            </Div>
-                        </a>
-                    </Div>
-<?php
-                    if ($i%6==5)
-                        echo "</Div>";
-                endfor; ?>
-            </Div>
-        </Div>
-        <Div class="col-md-1"></Div>
-    </Div>
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/page/book/<?php echo $books[$i]->id; ?>">Book's Profile</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="alert('Broadcasting a book means posting to friends that you have it (maybe on FB, think about it...)')">Broadcast Book</a>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                    <li class="alert-danger">
+                                        <a onclick="alert('Implement book removal!')">Remove Book</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <h4><?php echo $books[$i]->name; ?></h4>
+                            <h6><?php echo $books[$i]->author; ?></h6>
+                        </div>
+
+                    </div>
+                </div>
+            <?php
+            endfor;
+            ?>
+        </div>
+    </div>
+</div>

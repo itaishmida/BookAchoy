@@ -1,79 +1,65 @@
 <div class="container">
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <h1>
-                News Feed
-            </h1>
-
-            <h3>User Record for random user with ID <?php $userID = rand(1, 100);
-                echo $userID ?></h3>
-
-            <div class="table-responsive">
-                <table class="table table-condensed">
-                    <tr class="success">
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>Account Status</td>
-                        <td>Join Date</td>
-                    </tr>
-                    <?php
-                    foreach ($this->user_model->get_user($userID) as $row) {
-                        echo '<tr class="activesuccess">';
-                        echo '<td>' . $row->id . '</td>';
-                        echo '<td>' . $row->name . '</td>';
-                        echo '<td>' . $row->email . '</td>';
-                        echo '<td ';
-                        if ($row->acct_status == 0)
-                            echo "class='active'>Active";
-                        elseif ($row->acct_status == 1)
-                            echo "class='info'>Inactive";
-                        else
-                            echo "class='danger'>Banned";
-                        echo '</td>';
-                        echo '<td>' . $row->join_date . '</td>';
-                        echo '</tr>';
-                    }
-                    ?>
-                </table>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-header">
+                <h1>
+                    News Feed
+                </h1>
             </div>
+            <?php for ($i = 0;
+                       $i < count($result);
+                       $i++): ?>
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>
+                                <a href="/page/bookshelf/<?php echo $result[$i]->friend_id; ?>">
+                                    <Img border="0"
+                                        src="http://graph.facebook.com/<?php echo $result[$i]->friend_fbid; ?>/picture?width=40&height=40"
+                                        width="40" height="40" class="img-rounded">
+                                </a>
+                                &nbsp;
+                                <?php echo $result[$i]->friend_name . ' added a book to his bookshelf.'; ?>
+                            </h4>
+                        </div>
+                        <div class="panel-body text-center">
+                            <Img
+                                src="http://bks5.books.google.com/books?id=<?php echo $result[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                                class="img-rounded" style="min-height:180px;height:180px;">
 
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li class="alert-success">
+                                        <a onclick="alert('Implement book loan!')">Loan Book</a>
+                                    </li>
+                                    <li class="divider">
+                                    </li>
+                                    <li>
+                                        <a href="/page/book/<?php echo $result[$i]->book_id; ?>">Book's Profile</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="alert('Broadcasting a book means posting to friends that you have it (maybe on FB, think about it...)')">Broadcast
+                                            Book</a>
+                                    </li>
+                                </ul>
+                            </div>
 
-            <h3><?php $numOfUsers = 10;
-                echo $numOfUsers ?> Most Recent New Users (by join date)</h3>
+                            <h4><?php echo $result[$i]->book_name; ?></h4>
+                            <h6><?php echo $result[$i]->book_author; ?></h6>
 
-            <div class="table-responsive">
-                <table class="table table-condensed">
-                    <tr class="success">
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>Account Status</td>
-                        <td>Join Date</td>
-                    </tr>
-                    <?php
-                    //$this->db->where('name = "Mor Test2"');
-                    $query = $this->db->get('user');
-                    $query = $this->db->query('SELECT * FROM user ORDER BY join_date DESC limit ' . $numOfUsers);
-                    foreach ($query->result() as $row) {
-                        echo '<tr class="activesuccess">';
-                        echo '<td>' . $row->id . '</td>';
-                        echo '<td>' . $row->name . '</td>';
-                        echo '<td>' . $row->email . '</td>';
-                        echo '<td ';
-                        if ($row->acct_status == 0)
-                            echo "class='active'>Active";
-                        elseif ($row->acct_status == 1)
-                            echo "class='info'>Inactive";
-                        else
-                            echo "class='danger'>Banned";
-                        echo '</td>';
-                        echo '<td>' . $row->join_date . '</td>';
-                        echo '</tr>';
-                    }
-                    ?>
-                </table>
-            </div>
+                        </div>
+
+                        <div class="panel-footer text-center">
+                            <p>Added at: <?php echo $result[$i]->book_added_date; ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            endfor;
+            ?>
         </div>
     </div>
 </div>
+

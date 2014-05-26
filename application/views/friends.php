@@ -1,52 +1,44 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Owner
- * Date: 18/04/14
- * Time: 15:13
- */
-        $numOfFriends = count($friends);
-?>
-<!doctype html>
-<html xmlns:fb="http://www.facebook.com/2008/fbml">
-<head>
-    <title>demo</title>
-</head>
-<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-header">
+                <h1>
+                    My Friends
+                </h1>
+            </div>
+            <?php for ($j = 0;
+                       $j < count($friends);
+                       $j++): ?>
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <Img
+                                src="http://graph.facebook.com/<?php echo $friends[$j]->fbid; ?>/picture?width=150&height=150"
+                                class="img-rounded" style="min-height:130px;height:130px;">
 
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/page/profile/<?php echo $friends[$j]->id; ?>">Friends's BookAchoy Profile</a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="https://www.facebook.com/profile.php?id=<?php echo $friends[$j]->fbid; ?>">Friends's Facebook Profile</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <h4><?php echo $friends[$j]->name; ?></h4>
+                            <h6><?php echo $friends[$j]->join_date; ?></h6>
+                        </div>
 
-
-
-<!-- *********************** Friends list ************************************ -->
-
-<?php
-    if ($friends!="") { ?>
-        <Div class="row">
-            <Div class="col-md-1"></Div>
-            <Div class="col-md-10" style="background-color: lightgray">
-                <H2><?php echo $title; ?>
-                </H2>
-
-<?php           $start = rand(0, count($friends));
-                for ($i = 0; $i<$numOfFriends; $i++) {
-                    $j = ($start + $i) % count($friends);
-                     ?>
-                    <Div class="col-md-2">
-                        <a href="/page/bookshelf/<?php echo $friends[$j]->id; ?>" class="thumbnail">
-                                <Img src="http://graph.facebook.com/<?php echo $friends[$j]->fbid; ?>/picture?width=150&height=150" width="150" height="150">
-                                <div class="caption">
-                                    <H5><?php echo $friends[$j]->name; ?></H5>
-                                    <span class="glyphicon glyphicon-envelope">
-                                </div>
-                        </a>
-                    </Div>
-<?php           } ?>
-            </Div>
-            <Div class="col-md-1"></Div>
-        </Div>
-<?php
-    }
-?>
-
-</body>
-</html>
+                    </div>
+                </div>
+            <?php
+            endfor;
+            ?>
+        </div>
+    </div>
+</div>

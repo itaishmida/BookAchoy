@@ -1,5 +1,3 @@
-
-
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -8,13 +6,13 @@
             </h2>
                 <h3>Our Team</h3>
             <ul>
-                <li>Adi Mizrahi <br>
+                <li>Adi Mizrahi<br>
                 </li>
-                <li>Shai Fisher <br>
+                <li>Shai Fisher<br>
                 </li>
-                <li>Mor Hason <br>
+                <li>Mor Hasson<br>
                 </li>
-                <li>Itai Shmida <br>
+                <li>Itai Shmida<br>
                 </li>
             </ul>
 
