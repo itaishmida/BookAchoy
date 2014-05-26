@@ -3,7 +3,7 @@
         <div class="col-xs-12">
             <div class="page-header">
                 <h1>
-                    My Bookshelf
+                    <?php echo $title; ?>
                 </h1>
             </div>
             <?php for ($i = 0;
@@ -12,9 +12,11 @@
                 <div class="col-xs-12 col-sm-4 text-center">
                     <div class="panel">
                         <div class="panel-heading">
-                            <Img
-                                src="http://bks5.books.google.com/books?id=<?php echo $books[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-                                class="img-rounded" style="min-height:180px;height:180px;">
+                            <a href="/page/book/<?php echo $books[$i]->id; ?>">
+                                <Img
+                                    src="http://bks5.books.google.com/books?id=<?php echo $books[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                                    class="img-rounded" style="min-height:180px;height:180px;">
+                            </a>
 
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span

@@ -157,8 +157,17 @@ class book_model extends CI_Model {
 
     function addBook($google_id, $name, $author, $isbn) {
         $book = $this->getBookByGoogleId($google_id);
-        if ($book==null)
-            $this->runQuery('INSERT INTO book (google_id, name, author, isbn) VALUES ("'.$google_id.'","'.$name.'","'.$author.'","'.$isbn.'");');
+        if ($book==null) {
+            $row = array(
+                "google_id" => $google_id,
+                "name" => $name,
+                "author" => $author,
+                "isbn" => $isbn
+            );
+            $this->db->insert('book',$row);
+
+            //$this->runQuery('INSERT INTO book (google_id, name, author, isbn) VALUES ("'.$google_id.'","'.$name.'","'.$author.'","'.$isbn.'");');
+        }
     }
 
     function addBookToUser($userId, $bookId) {
@@ -173,6 +182,10 @@ class book_model extends CI_Model {
         $book = $this->getBookByGoogleId($googleBookId);
         if ($book == null) {
             $googleBook = $this->google_model->getBookDetails($googleBookId);
+            if ($googleBook==null) {
+                print_r("Book not found");
+                return null;
+            }
             // maybe the id that will return is different
             $book = $this->getBookByGoogleId($googleBook['google_id']);
             if ($book == null) {
@@ -185,6 +198,8 @@ class book_model extends CI_Model {
 
     function addBookToUserByGoogleId($userId, $googleBookId) {
         $bookId = $this->addBookFromGoogle($googleBookId);
+        if ($bookId==null)
+            return;
         $this->addBookToUser($userId, $bookId);
     }
 

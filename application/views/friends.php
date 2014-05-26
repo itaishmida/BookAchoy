@@ -12,9 +12,11 @@
                 <div class="col-xs-12 col-sm-4 text-center">
                     <div class="panel">
                         <div class="panel-heading">
-                            <Img
-                                src="http://graph.facebook.com/<?php echo $friends[$j]->fbid; ?>/picture?width=150&height=150"
-                                class="img-rounded" style="min-height:130px;height:130px;">
+                            <a href="/page/bookshelf/<?php echo $friends[$j]->id; ?>">
+                                <Img
+                                    src="http://graph.facebook.com/<?php echo $friends[$j]->fbid; ?>/picture?width=150&height=150"
+                                    class="img-rounded" style="min-height:130px;height:130px;">
+                            </a>
 
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span

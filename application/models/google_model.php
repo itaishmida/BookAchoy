@@ -16,6 +16,8 @@ class google_model extends CI_Model {
         $this->load->library('google');
 
         $googleBooks = $this->google->books($googleBookId, array('id' => $googleBookId))->results;
+        if ($googleBooks==null || count($googleBooks)==0)
+            return null;
         $google_id = $googleBooks[0]->unescapedUrl;
         $start = strpos($google_id, '?id=') + 4;
         $google_id = substr($google_id, $start, strpos($google_id, '&')-$start);
