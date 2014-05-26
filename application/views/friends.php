@@ -21,10 +21,10 @@
                                         class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="/page/profile/<?php echo $friends[$j]->id; ?>">Friends's BookAchoy Profile</a>
+                                        <a href="/page/profile/<?php echo $friends[$j]->id; ?>">Friend's BookAchoy Profile</a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="https://www.facebook.com/profile.php?id=<?php echo $friends[$j]->fbid; ?>">Friends's Facebook Profile</a>
+                                        <a target="_blank" href="https://www.facebook.com/profile.php?id=<?php echo $friends[$j]->fbid; ?>">Friend's Facebook Profile</a>
                                     </li>
                                 </ul>
                             </div>
