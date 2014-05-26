@@ -140,7 +140,7 @@ class Page extends CI_Controller {
         $userId = $user->id;
         $book = $this->google_model->getBookDetails($googleBookId);
         $data['bookDetails'] = $this->book_model->addBookToUserByGoogleId($userId, $googleBookId);
-        $this->myBooks();
+        $this->myBookshelf();
     }
 
     public function newsfeed()
