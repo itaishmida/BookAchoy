@@ -143,6 +143,17 @@ class Page extends CI_Controller {
         $this->myBookshelf();
     }
 
+
+    public function removeBook($bookId) {
+        $this->load->model('login_model');
+        $this->load->model('book_model');
+        $this->load->model('google_model');
+        $user = $this->login_model->getCurrentUser();
+        $userId = $user->id;
+        $this->book_model->removeBookFromUser($userId, $bookId);
+        $this->myBookshelf();
+    }
+
     public function newsfeed()
     {
         $this->load->model('login_model');

@@ -176,6 +176,10 @@ class book_model extends CI_Model {
             $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ("'.$userId.'", "'.$bookId.'", "'.date('Y-m-d').'", 0);');
     }
 
+    function removeBookFromUser($userId, $bookId) {
+        $this->db->query('DELETE FROM users_owned_books WHERE user_id='.$userId.' AND book_id='.$bookId);
+    }
+
     function addBookFromGoogle($googleBookId) {
         $this->load->model('google_model');
 
@@ -203,9 +207,15 @@ class book_model extends CI_Model {
         $this->addBookToUser($userId, $bookId);
     }
 
+
+
+
+
+
+
+
     function test_addBook() {
         $googleBookId = '3jfc-Fc1xdsC';
-
 
         // remove book from DB
         $book = $this->getBookByGoogleId($googleBookId);

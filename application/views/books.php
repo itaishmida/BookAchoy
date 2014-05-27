@@ -31,7 +31,7 @@
                                     <li class="divider">
                                     </li>
                                     <li class="alert-danger">
-                                        <a onclick="alert('Implement book removal!')">Remove Book</a>
+                                        <a href="/page/removebook/<?php echo $books[$i]->id; ?>">Remove Book</a>
                                     </li>
                                 </ul>
                             </div>
