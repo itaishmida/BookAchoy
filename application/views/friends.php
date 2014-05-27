@@ -26,7 +26,7 @@
                                         <a href="/page/profile/<?php echo $friends[$j]->id; ?>">Friend's BookAchoy Profile</a>
                                     </li>
                                     <li> <!--link to facebook message with link to the book-->
-                                        <a href="https://www.facebook.com/dialog/send?app_id=636197546460681&to=<?php echo $friends[$j]->fbid; ?>&link=http://bookachoy.com<?php echo $_SERVER['REQUEST_URI']; ?>&redirect_uri=http://bookachoy.com/" target=_blank">Send a message</a>
+                                        <a href="https://www.facebook.com/dialog/send?app_id=636197546460681&to=<?php echo $friends[$j]->fbid; ?>&link=http://bookachoy.com<?php echo $_SERVER['REQUEST_URI']; ?>&redirect_uri=http://bookachoy.com<?php echo $_SERVER['REQUEST_URI']; ?>">Send a message</a>
                                     </li>
                                     <li>
                                         <a target="_blank" href="https://www.facebook.com/profile.php?id=<?php echo $friends[$j]->fbid; ?>">Friend's Facebook Profile</a>

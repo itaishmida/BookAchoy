@@ -30,6 +30,3 @@ There was a time in my life when I couldn’t get enough of reading Dostoevsky. 
 
             </div>
         </div>
-
-
-</html>
