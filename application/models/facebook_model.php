@@ -27,10 +27,7 @@ class facebook_model extends CI_Model {
     }
     public function getFacebookId() {
         $facebookId = $this->facebook->getUser();
-        if ($facebookId == 0)
-            return 676039134;
-        else
-            return $facebookId;
+        return $facebookId;
     }
 
     public function getLoginUrl() {

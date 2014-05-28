@@ -8,38 +8,20 @@ class Page extends CI_Controller {
 	{
         $this->load->model('facebook_model');
         $data['fbLogin'] = $this->facebook_model->getLoginUrl();
-        $this->load->view('template/header',$data);
+        $this->loadHeader("");
         $this->load->view('main',$data);
         $this->load->view('template/footer');
 
 	}
     public function contact()
     {
-        $this->load->model('login_model');
-        $this->load->model('facebook_model');
-
-        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
-
-        $dataHeader['title'] = "Contact Us";
-        $this->load->view('template/header',$dataHeader);
+        $this->loadHeader("Contact Us");
         $this->load->view('contact');
-        $this->load->view('template/footer');
-    }
-    public function how_it_works()
-    {
-        $dataHeader['title'] = "How It Works";
-        $this->load->view('template/header',$dataHeader);
-        $this->load->view('how_it_works');
         $this->load->view('template/footer');
     }
     public function about()
     {
-        $this->load->model('login_model');
-        $this->load->model('facebook_model');
-
-        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
-        $dataHeader['title'] = "About Us";
-        $this->load->view('template/header',$dataHeader);
+        $this->loadHeader("About Us");
         $this->load->view('about');
         $this->load->view('template/footer');
     }
@@ -47,20 +29,17 @@ class Page extends CI_Controller {
     public function myFriends()
     {
         $this->load->model('login_model');
-        $this->load->model('facebook_model');
         $this->load->model('user_model');
 
+        $this->loadHeader("My Friends");
         $user = $this->login_model->getCurrentUser();
-        $user = $user;
-        $data['user'] = $user;
-        $data['friends'] = $this->user_model->getFriends($user);
-        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
-        $dataHeader['title'] = "My Friends";
-        $this->load->view('template/header',$dataHeader);
-        $this->load->view('friends', $data);
+        if ($user !=null) {
+            $data['friends'] = $this->user_model->getFriends($user);
+            $this->load->view('friends', $data);
+        }
         $this->load->view('template/footer');
     }
-
+/*
     public function friends($userId)
     {
         $this->load->model('user_model');
@@ -76,25 +55,19 @@ class Page extends CI_Controller {
         $this->load->view('friends', $data);
         $this->load->view('template/footer');
     }
-
+*/
     public function myBookshelf()
     {
         $this->load->model('login_model');
         $this->load->model('book_model');
-        $this->load->model('facebook_model');
-        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
 
+        $this->loadHeader("My Bookshelf");
         $user = $this->login_model->getCurrentUser();
-
-        $data['books'] = $this->book_model->getUserBooks($user->id);
-        if ($data['books']==null) {
-            $this->book_model->insertFakeBooksToUserBookshelf($user->id);
+        if ($user != null) {
             $data['books'] = $this->book_model->getUserBooks($user->id);
+            $this->load->view('books', $data);
+            $this->load->view('addBook');
         }
-        $dataHeader['title'] = "My Bookshelf";
-        $this->load->view('template/header',$dataHeader);
-        $this->load->view('books', $data);
-        $this->load->view('addBook');
         $this->load->view('template/footer');
     }
 
@@ -102,13 +75,14 @@ class Page extends CI_Controller {
     {
         $this->load->model('book_model');
         $this->load->model('user_model');
-        $this->load->model('facebook_model');
-        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
         $data['books'] = $this->book_model->getUserBooks($userId);
         $user = $this->user_model->get_user($userId);
-        $data['title'] = $user->name."'s books";
-
-        $this->load->view('template/header',$dataHeader);
+        if ($user!=null)
+            $title = $this->user_model->get_user($userId)->name."'s books";
+        else
+            $title = "";
+        $data['title'] = $title;
+        $this->loadHeader($title);
         $this->load->view('books', $data);
         $this->load->view('template/footer');
     }
@@ -116,17 +90,12 @@ class Page extends CI_Controller {
     public function book($bookId)
     {
         $this->load->model('book_model');
-        $this->load->model('user_model');
-        $this->load->model('facebook_model');
-        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
 
         $data['book'] = $this->book_model->getBook($bookId);
-        $data['book'] = $data['book'];
         $friendsData['friends'] = $this->book_model->getOwners($data['book']['id']);
-        $friendsData['url'] = '';
+        $friendsData['title'] = "Friends who has this book";
 
-        $dataHeader['title'] = "Friends who has this book";
-        $this->load->view('template/header',$dataHeader);
+        $this->loadHeader($data['book']['name']);
         $this->load->view('book', $data);
         $this->load->view('friends', $friendsData);
         $this->load->view('template/footer');
@@ -157,22 +126,29 @@ class Page extends CI_Controller {
     public function newsfeed()
     {
         $this->load->model('login_model');
-        $this->load->model('user_model');
         $this->load->model('newsfeed_model');
-        $this->load->model('facebook_model');
-        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
 
+        $this->loadHeader("News Feed");
         $user = $this->login_model->getCurrentUser();
-        if ($user==null) {
-            $user->id = 1;
+        if ($user!=null) {
+            $data['result'] = $this->newsfeed_model->getNewsFeedBooks($user->id);
+            $this->load->view('newsfeed',$data);
         }
-
-        $data['result'] = $this->newsfeed_model->getNewsFeedBooks($user->id);
-
-        $dataHeader['title'] = "News Feed";
-        $this->load->view('template/header',$dataHeader);
-        $this->load->view('newsfeed',$data);
         $this->load->view('template/footer');
+    }
+
+    private function loadHeader($title) {
+        $this->load->model('login_model');
+        $this->load->model('facebook_model');
+        $user = $this->login_model->getCurrentUser();
+
+        if ($user!=null)
+            $dataHeader['username'] = $user->name;
+        else
+            $dataHeader['username'] = "login";
+        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
+        $dataHeader['title'] = $title;
+        $this->load->view('template/header',$dataHeader);
     }
 
     public function test_addBook() {

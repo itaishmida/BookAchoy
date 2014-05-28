@@ -148,6 +148,8 @@ class book_model extends CI_Model {
     }
 
     function getOwners($bookId) {
+        if ($bookId==null)
+            return null;
         $queryStr = 'SELECT * FROM user WHERE id IN (SELECT user_id FROM users_owned_books WHERE book_id='.$bookId.');';
         $query = $this->db->query($queryStr);
         //echo '<BR><BR>' . $queryStr . ': <BR>';

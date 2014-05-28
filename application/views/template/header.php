@@ -55,11 +55,11 @@
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
+                            <!--li>
                                 <a href="<?php echo base_url("page/how_it_works"); ?>">How It Works</a>
-                            </li>
+                            </li-->
                             <li class="active">
-                                <a href="<?php echo $fbLogin; ?>">Login</a>
+                                <a href="<?php echo $fbLogin; ?>"><?php echo $username; ?></a>
                             </li>
                         </ul>
                     </div>
