@@ -143,9 +143,15 @@ class Page extends CI_Controller {
         $user = $this->login_model->getCurrentUser();
 
         if ($user!=null)
+        {
             $dataHeader['username'] = $user->name;
+            $dataHeader['loggedIn'] = true;
+        }
         else
+        {
             $dataHeader['username'] = "login";
+            $dataHeader['loggedIn'] = false;
+        }
         $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
         $dataHeader['title'] = $title;
         $this->load->view('template/header',$dataHeader);

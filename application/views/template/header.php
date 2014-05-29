@@ -35,33 +35,47 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
+                            <?php if($loggedIn): ?>
                             <li>
                                 <a href="<?php echo base_url("page/NewsFeed"); ?>">News Feed</a>
                             </li>
-                            <li>
-                                <a href="<?php echo base_url("page/Contact"); ?>">Contact Us</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url("page/About"); ?>">About</a>
-                            </li>
+
                             <li>
                                 <a href="<?php echo base_url("page/MyBookshelf"); ?>">My Bookshelf</a>
                             </li>
                             <li>
                                 <a href="<?php echo base_url("page/myFriends"); ?>">My Friends</a>
                             </li>
+                            <?php endif; ?>
+                            <li>
+                                <a href="<?php echo base_url("page/Contact"); ?>">Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url("page/About"); ?>">About</a>
+                            </li>
 
 
                         </ul>
+                        <?php if($loggedIn): ?>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hello <?php echo $username; ?> <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?php echo $fbLogin; ?>">Logout</a></li>
 
+                                </ul>
+                            </li>
+                        </ul>
+                        <?php else: ?>
                         <ul class="nav navbar-nav navbar-right">
                             <!--li>
                                 <a href="<?php echo base_url("page/how_it_works"); ?>">How It Works</a>
                             </li-->
                             <li class="active">
-                                <a href="<?php echo $fbLogin; ?>"><?php echo $username; ?></a>
+                                <a href="<?php echo $fbLogin; ?>">Login</a>
                             </li>
                         </ul>
+                        <?php endif ?>
                     </div>
 
                 </nav>
