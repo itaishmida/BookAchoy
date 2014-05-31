@@ -22,14 +22,6 @@
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
                                         class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="/page/book/<?php echo $books[$i]->id; ?>">Book's Profile</a>
-                                    </li>
-                                    <li>
-                                        <a onclick="alert('Broadcasting a book means posting to friends that you have it (maybe on FB, think about it...)')">Broadcast Book</a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
                                     <li class="alert-danger">
                                         <a href="/page/removebook/<?php echo $books[$i]->id; ?>">Remove Book</a>
                                     </li>

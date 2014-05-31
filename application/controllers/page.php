@@ -90,12 +90,15 @@ class Page extends CI_Controller {
     public function book($bookId)
     {
         $this->load->model('book_model');
+        $this->load->model('login_model');
 
         $data['book'] = $this->book_model->getBook($bookId);
         $friendsData['friends'] = $this->book_model->getOwners($data['book']['id']);
         $friendsData['title'] = "Friends who has this book";
-
+        $user = $this->login_model->getCurrentUser();
+        $data['isOwnedByCurrentUser'] = $user!=null && $this->book_model->isOwnedby($bookId, $user->id);
         $this->loadHeader($data['book']['name']);
+        
         $this->load->view('book', $data);
         $this->load->view('friends', $friendsData);
         $this->load->view('template/footer');

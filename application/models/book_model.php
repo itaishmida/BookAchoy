@@ -209,6 +209,10 @@ class book_model extends CI_Model {
         $this->addBookToUser($userId, $bookId);
     }
 
+    function isOwnedby($bookId, $userId) {
+        $owns = $this->db->query('SELECT * FROM users_owned_books WHERE user_id="'.$userId.'" AND book_id="'.$bookId.'"')->result();
+        return (count($owns)>0);
+    }
 
 
 
