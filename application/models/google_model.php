@@ -29,4 +29,26 @@ class google_model extends CI_Model {
         );
         return $book;
     }
+
+    public function searchBook($searchTerm) {
+        $this->load->library('google');
+
+        $googleBooks = $this->google->books($searchTerm)->results;
+        if ($googleBooks==null || count($googleBooks)==0)
+            return null;
+        $searchResults = array(count($googleBooks));
+        foreach ($googleBooks as $googleBook) {
+            $google_id = $googleBook->unescapedUrl;
+            $start = strpos($google_id, '?id=') + 4;
+            $google_id = substr($google_id, $start, strpos($google_id, '&')-$start);
+            $book = array(
+                "google_id" => $google_id,
+                "name" => $googleBook->title,
+                "author" => $googleBook->authors,
+                "isbn" => $googleBook->bookId
+            );
+            array_push($searchResults, $book);
+        }
+        return $searchResults;
+    }
 } 

@@ -101,15 +101,25 @@ class Page extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function searchBook($searchTerm) {
+        $this->load->model('google_model');
+        $data['searchResults'] = $this->google_model->searchBook($searchTerm);
+        $this->loadHeader("Search Results");
+        $this->load->view('googleSearchResults', $data);
+        $this->load->view('template/footer');
+    }
+
     public function addBook($googleBookId) {
         $this->load->model('login_model');
         $this->load->model('book_model');
         $this->load->model('google_model');
         $user = $this->login_model->getCurrentUser();
-        $userId = $user->id;
-        $book = $this->google_model->getBookDetails($googleBookId);
-        $data['bookDetails'] = $this->book_model->addBookToUserByGoogleId($userId, $googleBookId);
-        $this->myBookshelf();
+        if ($user!=null) {
+            $userId = $user->id;
+            //$book = $this->google_model->getBookDetails($googleBookId);
+            $data['bookDetails'] = $this->book_model->addBookToUserByGoogleId($userId, $googleBookId);
+            $this->myBookshelf();
+        }
     }
 
 
@@ -160,6 +170,14 @@ class Page extends CI_Controller {
     public function test_addBook() {
         $this->load->model('book_model');
         $this->book_model->test_addBook();
+    }
+
+    public function test_Google_Model() {
+        $this->load->model('google_model');
+        $searchResults = $this->google_model->searchBook("war and peace");
+        print_r($searchResults);
+        print_r("<BR><BR>");
+        print_r($searchResults[1]);
     }
 }
 
