@@ -32,7 +32,7 @@
                                         class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li class="alert-success">
-                                        <a onclick="alert('Implement book loan!')">Loan Book</a>
+                                        <a data-friendId="<?php echo $result[$i]->friend_id; ?>" data-bookId="<?php echo $result[$i]->google_id; ?>" onclick="alert('Implement book loan!')">Loan Book</a>
                                     </li>
                                     <li class="divider">
                                     </li>
