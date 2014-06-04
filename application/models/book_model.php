@@ -1,28 +1,32 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Owner
  * Date: 24/04/14
  * Time: 21:36
  */
+class book_model extends CI_Model
+{
 
-class book_model extends CI_Model {
-
-    function __construct(){
+    function __construct()
+    {
         parent::__construct();
     }
 
 
-    function getBook($id) {
+    function getBook($id)
+    {
         $books = $this->db->query('SELECT * FROM book WHERE id = ' . $id)->result_array();
-        if ($books!=null)
+        if ($books != null)
             return $books[0];
         return null;
     }
 
-    function getBookByGoogleId($googleBookId) {
-        $books = $this->db->query('SELECT * FROM book WHERE google_id="'.$googleBookId.'"')->result_array();
-        if ($books!=null)
+    function getBookByGoogleId($googleBookId)
+    {
+        $books = $this->db->query('SELECT * FROM book WHERE google_id="' . $googleBookId . '"')->result_array();
+        if ($books != null)
             return $books[0];
         return null;
     }
@@ -93,30 +97,32 @@ class book_model extends CI_Model {
         );
         $bookValues = '';
         foreach ($books as $book) {
-            $bookValues .= '("'.$book['googleBooksId'].'", "'.$book['name'].'", "'.$book['author'].'"), ';
+            $bookValues .= '("' . $book['googleBooksId'] . '", "' . $book['name'] . '", "' . $book['author'] . '"), ';
         }
         $this->runQuery('INSERT INTO book (google_id, name, author) VALUES ' . substr($bookValues, 0, -2) . ';');
     }
 
 
-    public function getFakeBook() {
+    public function getFakeBook()
+    {
         $books = $this->getFakeBooks();
-        $i = rand(0, count($books)-1);
+        $i = rand(0, count($books) - 1);
         $book = array(
             "name" => "סיפור על אהבה וחושך",
             "author" => "עמוס עוז",
             "picUrl" => "http://bks0.books.google.co.il/books?id=YD_IqvIbjkUC&printsec=frontcover&img=1&zoom=2&edge=curl&imgtk=AFLRE71JeyM-kCkokhV-SIZsX6lXCiYmzg7QLzgYUJOYcHKflkyu7l65BHHf9yePAXw60RaUAlmfdBizQsmfAozEz0uVOrT55tZfPMS_NjJfGaqPUmnp5AimSYCVHLnsLPD4-zRTY6p-",
             "googleBooksId" => "YD_IqvIbjkUC"
-           // "owners" => $owners
+            // "owners" => $owners
         );
         return $books[$i];
     }
 
-    public function insertFakeBooksToUserBookshelf($id) {
+    public function insertFakeBooksToUserBookshelf($id)
+    {
         //$this->db->query('delete FROM users_owned_books');
         //$this->db->query('delete FROM book');
         $books = $this->db->query('SELECT * FROM book')->result();
-        if ($books==null) {
+        if ($books == null) {
             echo "no books";
             $this->insertFakeBooks();
             return;
@@ -124,14 +130,15 @@ class book_model extends CI_Model {
         //print_r($books);
         $book1 = $books[rand(0, count($books))];
         $book2 = $books[rand(0, count($books))];
-        $ownValues = '("'.$id.'", "'.$book1->id.'", "'.date('Y-m-d').'", 0), ';
-        $ownValues .= '("'.$id.'", "'.$book2->id.'", "'.date('Y-m-d').'", 0), ';
+        $ownValues = '("' . $id . '", "' . $book1->id . '", "' . date('Y-m-d') . '", 0), ';
+        $ownValues .= '("' . $id . '", "' . $book2->id . '", "' . date('Y-m-d') . '", 0), ';
 
         $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ' . substr($ownValues, 0, -2) . ';');
     }
 
-    public function getUserBooks($userId) {
-        $queryStr = 'SELECT * FROM book WHERE id IN (SELECT book_id from users_owned_books WHERE user_id='.$userId.');';
+    public function getUserBooks($userId)
+    {
+        $queryStr = 'SELECT * FROM book WHERE id IN (SELECT book_id from users_owned_books WHERE user_id=' . $userId . ');';
         $query = $this->db->query($queryStr);
         //echo '<BR><BR>getUserBooks: ' . $queryStr . ': <BR>';
         //print_r($query->result());
@@ -139,56 +146,62 @@ class book_model extends CI_Model {
     }
 
 
-    function runQuery($queryStr) {
+    function runQuery($queryStr)
+    {
         try {
             $this->db->query($queryStr);
         } catch (Exception  $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            echo 'Caught exception: ', $e->getMessage(), "\n";
         }
     }
 
-    function getOwners($bookId) {
-        if ($bookId==null)
+    function getOwners($bookId)
+    {
+        if ($bookId == null)
             return null;
-        $queryStr = 'SELECT * FROM user WHERE id IN (SELECT user_id FROM users_owned_books WHERE book_id='.$bookId.');';
+        $queryStr = 'SELECT * FROM user WHERE id IN (SELECT user_id FROM users_owned_books WHERE book_id=' . $bookId . ');';
         $query = $this->db->query($queryStr);
         //echo '<BR><BR>' . $queryStr . ': <BR>';
         //print_r($query->result());
         return $query->result();
     }
 
-    function addBook($google_id, $name, $author, $isbn) {
+    function addBook($google_id, $name, $author, $isbn)
+    {
         $book = $this->getBookByGoogleId($google_id);
-        if ($book==null) {
+        if ($book == null) {
             $row = array(
                 "google_id" => $google_id,
                 "name" => $name,
                 "author" => $author,
                 "isbn" => $isbn
             );
-            $this->db->insert('book',$row);
+            $this->db->insert('book', $row);
 
             //$this->runQuery('INSERT INTO book (google_id, name, author, isbn) VALUES ("'.$google_id.'","'.$name.'","'.$author.'","'.$isbn.'");');
         }
     }
 
-    function addBookToUser($userId, $bookId) {
-        $own = $this->db->query('SELECT * FROM users_owned_books WHERE user_id='.$userId.' AND book_id='.$bookId)->result();
-        if ($own==null)
-            $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ("'.$userId.'", "'.$bookId.'", "'.date('Y-m-d').'", 0);');
+    function addBookToUser($userId, $bookId)
+    {
+        $own = $this->db->query('SELECT * FROM users_owned_books WHERE user_id=' . $userId . ' AND book_id=' . $bookId)->result();
+        if ($own == null)
+            $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ("' . $userId . '", "' . $bookId . '", "' . date('Y-m-d') . '", 0);');
     }
 
-    function removeBookFromUser($userId, $bookId) {
-        $this->db->query('DELETE FROM users_owned_books WHERE user_id='.$userId.' AND book_id='.$bookId);
+    function removeBookFromUser($userId, $bookId)
+    {
+        $this->db->query('DELETE FROM users_owned_books WHERE user_id=' . $userId . ' AND book_id=' . $bookId);
     }
 
-    function addBookFromGoogle($googleBookId) {
+    function addBookFromGoogle($googleBookId)
+    {
         $this->load->model('google_model');
 
         $book = $this->getBookByGoogleId($googleBookId);
         if ($book == null) {
             $googleBook = $this->google_model->getBookDetails($googleBookId);
-            if ($googleBook==null) {
+            if ($googleBook == null) {
                 print_r("Book not found");
                 return null;
             }
@@ -202,32 +215,56 @@ class book_model extends CI_Model {
         return $book['id'];
     }
 
-    function addBookToUserByGoogleId($userId, $googleBookId) {
+    function addBookToUserByGoogleId($userId, $googleBookId)
+    {
         $bookId = $this->addBookFromGoogle($googleBookId);
-        if ($bookId==null)
+        if ($bookId == null)
             return;
         $this->addBookToUser($userId, $bookId);
     }
 
-    function isOwnedby($bookId, $userId) {
-        $owns = $this->db->query('SELECT * FROM users_owned_books WHERE user_id="'.$userId.'" AND book_id="'.$bookId.'"')->result();
-        return (count($owns)>0);
+    function isOwnedby($bookId, $userId)
+    {
+        $owns = $this->db->query('SELECT * FROM users_owned_books WHERE user_id="' . $userId . '" AND book_id="' . $bookId . '"')->result();
+        return (count($owns) > 0);
+    }
+
+    function requestBookLoan($loanFromUserId, $loanToUserId, $bookId)
+    {
+        $curTime = time();
+        $dueTime = strtotime('+1 month', $curTime);
+        $row = array(
+            "user_id" => $loanToUserId,
+            "friend_id" => $loanFromUserId,
+            "book_id" => $bookId,
+            "due_date" => $dueTime,
+            "request_date" => $curTime
+        );
+        $this->db->insert('loans', $row);
+    }
+
+    function confirmBookLoan($loanFromUserId, $loanToUserId, $bookId)
+    {
+        $curTime = time();
+        $row = array(
+            "loan_date" => $curTime
+        );
+        $this->db->where('friend_id', $loanFromUserId);
+        $this->db->where('user_id', $loanToUserId);
+        $this->db->where('book_id', $bookId);
+        $this->db->update('loans', $row);
     }
 
 
-
-
-
-
-
-    function test_addBook() {
+    function test_addBook()
+    {
         $googleBookId = '3jfc-Fc1xdsC';
 
         // remove book from DB
         $book = $this->getBookByGoogleId($googleBookId);
         if ($book != null) {
-            $this->db->query('DELETE FROM users_owned_books WHERE book_id="'.$book['id'].'"');
-            $this->db->query('DELETE FROM book WHERE google_id="'.$googleBookId.'"');
+            $this->db->query('DELETE FROM users_owned_books WHERE book_id="' . $book['id'] . '"');
+            $this->db->query('DELETE FROM book WHERE google_id="' . $googleBookId . '"');
             $book = $this->getBookByGoogleId($googleBookId);
         }
         assert('$book==null');
@@ -247,7 +284,7 @@ class book_model extends CI_Model {
 
         // test addition to db
         $bookId = $this->addBookFromGoogle($googleBookId);
-        $assertion = assert($bookId!=null);
+        $assertion = assert($bookId != null);
         $book = $this->getBook($bookId);
         $assertion &= assert('$book[\'name\'] == $googleBook[\'name\']');
         $assertion &= assert('$book[\'author\'] == $googleBook[\'author\']');
@@ -265,7 +302,7 @@ class book_model extends CI_Model {
             print_r('<H2>Add book to User: test success.</H2>');
 
         // clean data
-        $this->db->query('DELETE FROM users_owned_books WHERE book_id="'.$bookId.'"');
-        $this->db->query('DELETE FROM book WHERE google_id="'.$googleBookId.'"');
+        $this->db->query('DELETE FROM users_owned_books WHERE book_id="' . $bookId . '"');
+        $this->db->query('DELETE FROM book WHERE google_id="' . $googleBookId . '"');
     }
 } 

@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `loans` (
   `user_id` int(11) NOT NULL,
   `friend_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
-  `loan_date` date NOT NULL,
+  `loan_date` date,
   `due_date` date NOT NULL,
   `request_date` date NOT NULL,
   UNIQUE KEY `loan_unique_index` (`user_id`,`friend_id`,`book_id`,`loan_date`),
