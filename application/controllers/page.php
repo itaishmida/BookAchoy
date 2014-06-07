@@ -35,6 +35,7 @@ class Page extends CI_Controller {
         $user = $this->login_model->getCurrentUser();
         if ($user !=null) {
             $data['friends'] = $this->user_model->getFriends($user);
+            $data['invite'] = true;
             $this->load->view('friends', $data);
         }
         $this->load->view('template/footer');

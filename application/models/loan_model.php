@@ -56,10 +56,10 @@ class loan_model extends CI_Model {
         $this->load->model('user_model');
         $this->load->model('facebook_model');
         $bookName = $this->book_model->getBook($bookId)['name'];
-        $demanderName = $this->user_model->get_user($demanderUserId)->name;
+        $demanderFBId = $this->user_model->get_user($demanderUserId)->fbid;
         $userFBId = $this->user_model->get_user($userId)->fbid;
-        $message = $demanderName.' is asking you to loan him the book "'.$bookName.'".';
-        $bookUrl = "/page/book/".$bookId;
+        $message = '@['.$demanderFBId.'] is asking you to loan him the book "'.$bookName.'".';
+        $bookUrl = "page/book/".$bookId;
         $this->facebook_model->sendNotification($userFBId, $message, $bookUrl);
     }
 } 

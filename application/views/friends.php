@@ -1,11 +1,22 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="page-header">
+            <div class="page-header col-xs-9">
                 <h1>
                     <?php echo $title; ?>
                 </h1>
             </div>
+
+            <?php if (isset($invite) && $invite): ?>
+                <div class="col-xs-3">
+                    <a href="#" onclick="FacebookInviteFriends();">
+                        <button type="button" class="btn btn-default btn-lg">
+                            <span class="glyphicon glyphicon-plus"></span> Invite Friends
+                        </button>
+                    </a>
+                </div>
+            <?php endif; ?>
+
             <?php for ($j = 0;
                        $j < count($friends);
                        $j++): ?>
@@ -27,7 +38,7 @@
                                     </li>
                                     <?php if (isset($bookId)): ?>
                                         <li class="alert-success">
-                                            <a href="/page/loanBook/<?php echo $bookId; ?>/<?php echo $friends[$j]->id; ?>" target=_blank">Request this book</a>
+                                            <a href="/page/loanBook/<?php echo $bookId; ?>/<?php echo $friends[$j]->id; ?>">Request this book</a>
                                         </li>
                                     <?php endif; ?>
                                     <li> <!--link to facebook message with link to the book. there is some problem with the book page url-->
@@ -53,3 +64,24 @@
         </div>
     </div>
 </div>
+
+
+<?php if (isset($invite) && $invite): ?>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
+    <script>
+        FB.init({
+            appId:'636197546460681',
+            cookie:true,
+            status:true,
+            xfbml:true
+        });
+
+        function FacebookInviteFriends()
+        {
+            FB.ui({
+                method: 'apprequests',
+                message: 'Your Message diaolog'
+            });
+        }
+    </script>
+<?php endif; ?>
