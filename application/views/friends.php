@@ -23,8 +23,13 @@
                                         class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="/page/profile/<?php echo $friends[$j]->id; ?>">Friend's BookAchoy Profile</a>
+                                        <a href="/page/bookshelf/<?php echo $friends[$j]->id; ?>">Friend's bookshelf</a>
                                     </li>
+                                    <?php if (isset($bookId)): ?>
+                                        <li class="alert-success">
+                                            <a href="/page/loanBook/<?php echo $bookId; ?>/<?php echo $friends[$j]->id; ?>" target=_blank">Request this book</a>
+                                        </li>
+                                    <?php endif; ?>
                                     <li> <!--link to facebook message with link to the book. there is some problem with the book page url-->
                                         <!--a href="https://www.facebook.com/dialog/send?app_id=636197546460681&to=<?php echo $friends[$j]->fbid; ?>&link=http://bookachoy.com<?php echo $_SERVER['REQUEST_URI']; ?>&redirect_uri=http://bookachoy.com/" target=_blank">Send a message</a-->
                                         <a href="https://www.facebook.com/dialog/send?app_id=636197546460681&to=<?php echo $friends[$j]->fbid; ?>&link=http://bookachoy.com&redirect_uri=http://bookachoy.com/" target=_blank">Send a message</a>

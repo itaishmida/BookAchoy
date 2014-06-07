@@ -61,10 +61,10 @@ class facebook_model extends CI_Model {
         }
         return $this->getFakeFriends();
     }
+
     public function getUser()
     {
         $user = $this->facebook->getUser();
-
         if ($user) {
             try {
                 $data['user_profile'] = $this->facebook
@@ -73,10 +73,7 @@ class facebook_model extends CI_Model {
                 $user = null;
             }
         }
-
-
        return $user;
-
     }
 
     public function getSomeFriends($numOfFriends)
@@ -92,64 +89,20 @@ class facebook_model extends CI_Model {
         return $friends;
     }
 
-    private function getFakeFriends()
-    {
-        $friends = array(
-            "data" => array(
-                0 => array(
-                    "name" => "Adi Mizrahi1‎‏‏",
-                    "id" => "541032350"
-                ),
-                1 => array(
-                    "name" => "Itai Shmida",
-                    "id" => "100000617083781"
-                ),
-                2 => array(
-                    "name" => "Shlomit Bar-Levav",
-                    "id" => "516858663"
-                ),
-                3 => array(
-                    "name" => "Shai Fisher",
-                    "id" => "676039134"
-                ),
-                4 => array(
-                    "name" => "Mor Hasson",
-                    "id" => "1093670109"
-                ),
-                5 => array(
-                    "name" => "Uri Abeles",
-                    "id" => "661510087"
-                ),
-                6 => array(
-                    "name" => "Yael Bresler‎‏‏",
-                    "id" => "825014312"
-                ),
-                7 => array(
-                    "name" => "Shiran Mor Yosef",
-                    "id" => "1314034435"
-                ),
-                8 => array(
-                    "name" => "Yosi Bar-niv",
-                    "id" => "100000190638748"
-                ),
-                9 => array(
-                    "name" => "Rotem Benjamin",
-                    "id" => "100007678632235"
-                ),
-                10 => array(
-                    "name" => "To Sha",
-                    "id" => "1765676322"
-                ),
-                11 => array(
-                    "name" => "Kobi Eliasi",
-                    "id" => "1111720418"
-                )
-            )
-        );
-        return $friends["data"];
-    }
-
     public function getPictureUrl($id) {
         return "http://graph.facebook.com/" + $id + "/picture?type=large";
+    }
+
+    public function sendNotification($userId, $text, $url) {
+        try {
+            $answer = $this->facebook->api( '/'.$userId.'/notifications', 'POST', array(
+                'template' =>  $text,
+                'href' =>  $url,
+                'access_token' => $this->facebook->getAppId().'|'.$this->facebook->getApiSecret()
+            ));
+            //print_r($answer);
+        } catch (FacebookApiException $e) {
+            print_r($e);
+        }
     }
 }

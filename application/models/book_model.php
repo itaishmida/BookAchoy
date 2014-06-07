@@ -161,8 +161,6 @@ class book_model extends CI_Model
             return null;
         $queryStr = 'SELECT * FROM user WHERE id IN (SELECT user_id FROM users_owned_books WHERE book_id=' . $bookId . ');';
         $query = $this->db->query($queryStr);
-        //echo '<BR><BR>' . $queryStr . ': <BR>';
-        //print_r($query->result());
         return $query->result();
     }
 
@@ -229,31 +227,6 @@ class book_model extends CI_Model
         return (count($owns) > 0);
     }
 
-    function requestBookLoan($loanFromUserId, $loanToUserId, $bookId)
-    {
-        $curTime = time();
-        $dueTime = strtotime('+1 month', $curTime);
-        $row = array(
-            "user_id" => $loanToUserId,
-            "friend_id" => $loanFromUserId,
-            "book_id" => $bookId,
-            "due_date" => $dueTime,
-            "request_date" => $curTime
-        );
-        $this->db->insert('loans', $row);
-    }
-
-    function confirmBookLoan($loanFromUserId, $loanToUserId, $bookId)
-    {
-        $curTime = time();
-        $row = array(
-            "loan_date" => $curTime
-        );
-        $this->db->where('friend_id', $loanFromUserId);
-        $this->db->where('user_id', $loanToUserId);
-        $this->db->where('book_id', $bookId);
-        $this->db->update('loans', $row);
-    }
 
 
     function test_addBook()

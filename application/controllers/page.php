@@ -95,10 +95,11 @@ class Page extends CI_Controller {
         $data['book'] = $this->book_model->getBook($bookId);
         $friendsData['friends'] = $this->book_model->getOwners($data['book']['id']);
         $friendsData['title'] = "Friends who has this book";
+        $friendsData['bookId'] = $bookId;
         $user = $this->login_model->getCurrentUser();
         $data['isOwnedByCurrentUser'] = $user!=null && $this->book_model->isOwnedby($bookId, $user->id);
+
         $this->loadHeader($data['book']['name']);
-        
         $this->load->view('book', $data);
         $this->load->view('friends', $friendsData);
         $this->load->view('template/footer');
@@ -134,6 +135,19 @@ class Page extends CI_Controller {
         $userId = $user->id;
         $this->book_model->removeBookFromUser($userId, $bookId);
         $this->myBookshelf();
+    }
+
+    public function loanBook($bookId, $ownerUserId) {
+        $this->load->model('login_model');
+        $this->load->model('loan_model');
+        //$this->load->model('facebook_model');
+        $user = $this->login_model->getCurrentUser();
+        if ($user!=null) {
+            $userId = $user->id;
+            $this->loan_model->requestBookLoan($ownerUserId, $userId, $bookId);
+            $this->loan_model->notifyRequest($ownerUserId, $bookId, $userId);
+            $this->myBookshelf(); // should route to loans page, when it will be exist
+        }
     }
 
     public function newsfeed()
