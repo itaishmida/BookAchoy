@@ -4,12 +4,12 @@
     <div class="col-md-1">
     </div>
     <div class="col-md-9">
-        Search for a book:<BR>
-        <input type="text" id="searchTerm" onChange="$('#addBookLink').attr('href', '/page/searchbook/'+this.value)">
-        <a href="" id="addBookLink">
-            <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-plus"></span> Add book
+        <form action="/page/searchBook" method="post" name="searchForm">
+        Add a book:<BR>
+        <input type="text" name="searchTerm">
+            <button type="submit" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-plus"></span> Search
             </button>
-            </a>
+        </form>
     </div>
 </div>

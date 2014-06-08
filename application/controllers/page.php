@@ -106,10 +106,12 @@ class Page extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function searchBook($searchTerm) {
+    public function searchBook() {
         $this->load->model('google_model');
+        $searchTerm = $this->input->post('searchTerm');
         $data['searchResults'] = $this->google_model->searchBook($searchTerm);
         $this->loadHeader("Search Results");
+        $this->load->view('addBook');
         $this->load->view('googleSearchResults', $data);
         $this->load->view('template/footer');
     }
