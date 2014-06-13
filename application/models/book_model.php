@@ -31,6 +31,7 @@ class book_model extends CI_Model
         return null;
     }
 
+    /*
     public function insertFakeBooks()
     {
         $books = array(
@@ -135,7 +136,7 @@ class book_model extends CI_Model
 
         $this->runQuery('INSERT INTO users_owned_books (user_id, book_id, added_date, status) VALUES ' . substr($ownValues, 0, -2) . ';');
     }
-
+*/
     public function getUserBooks($userId)
     {
         $queryStr = 'SELECT * FROM book WHERE id IN (SELECT book_id from users_owned_books WHERE user_id=' . $userId . ');';

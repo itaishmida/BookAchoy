@@ -40,17 +40,56 @@
                         </div>
                     </div>
 
+                    <!----------------- Reviews ----------------------->
                     <BR><BR>
-                    <H3>Review 1 <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></H3>
-There was a time in my life when I couldn’t get enough of reading Dostoevsky. Maybe because his books made me think so deeply about being human and how we choose to live our lives. I began with Crime and Punishment, probably the work he is best known for.
 
-                        What I remember is being fascinated by Dostoevsky’s brilliant understanding of human nature. I remember thinking what a deep study this book was; an incredible examination of a man who commits murder and how he is “punished” for it.
-                    <BR><BR>
-                    <H3>Review 2 <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></H3>
-There was a time in my life when I couldn’t get enough of reading Dostoevsky. Maybe because his books made me think so deeply about being human and how we choose to live our lives. I began with Crime and Punishment, probably the work he is best known for.
 
+
+                    <?php for ($i=0; $i<count($reviews); $i++): ?>
+                        <H3>
+                        <?php for ($j=0; $j<$reviews[$i]->rating; $j++): ?>
+                            <span class="glyphicon glyphicon-star"></span>
+                        <?php endfor; ?>
+                        </H3>
+                        <blockquote>
+                            <?php echo $reviews[$i]->review_text; ?>
+                            <footer><a href="/page/bookshelf/<?php echo $reviews[$i]->id; ?>"><?php echo $reviews[$i]->name; ?></a>
+                        </blockquote>
+                        <BR><BR>
+                    <?php endfor; ?>
+
+                    <Form action="/page/reviewBook" method="post" id="review_form" style="display: none">
+                        <H3>Review :
+                            <span class="glyphicon glyphicon-star-empty" onClick="rank(1)" id="rank1"></span>
+                            <span class="glyphicon glyphicon-star-empty" onClick="rank(2)" id="rank2"></span>
+                            <span class="glyphicon glyphicon-star-empty" onClick="rank(3)" id="rank3"></span>
+                            <span class="glyphicon glyphicon-star-empty" onClick="rank(4)" id="rank4"></span>
+                            <span class="glyphicon glyphicon-star-empty" onClick="rank(5)" id="rank5"></span></H3>
+                        <input type="hidden" name="rank" id="rank">
+                        <input type="hidden" name="book" value="<?php echo $book['id']; ?>">
+                        <textarea name="review" rows="4" cols="80" style="vertical-align:bottom"></textarea>
+                        <span>
+                            <button type="submit" class="btn btn-default btn-sm">Send</button>
+                        </span>
+                    </Form>
+
+                    <button class="btn btn-default btn-lg" onclick="$('#review_form').show(); $(this).hide()">Write a review</button>
 
                 </div>
 
             </div>
         </div>
+
+<Script>
+    function rank(grade) {
+        $('#rank').val(grade);
+        for (i=1; i<=grade; i++) {
+            $('#rank'+i).removeClass('glyphicon-star-empty');
+            $('#rank'+i).addClass('glyphicon-star');
+        }
+        for (i=grade+1; i<=5; i++) {
+            $('#rank'+i).removeClass('glyphicon-star');
+            $('#rank'+i).addClass('glyphicon-star-empty');
+        }
+    }
+</Script>

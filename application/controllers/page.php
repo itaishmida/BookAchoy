@@ -92,6 +92,7 @@ class Page extends CI_Controller {
     {
         $this->load->model('book_model');
         $this->load->model('login_model');
+        $this->load->model('review_model');
 
         $data['book'] = $this->book_model->getBook($bookId);
         $friendsData['friends'] = $this->book_model->getOwners($data['book']['id']);
@@ -99,6 +100,7 @@ class Page extends CI_Controller {
         $friendsData['bookId'] = $bookId;
         $user = $this->login_model->getCurrentUser();
         $data['isOwnedByCurrentUser'] = $user!=null && $this->book_model->isOwnedby($bookId, $user->id);
+        $data['reviews'] = $this->review_model->getReviews($bookId);
 
         $this->loadHeader($data['book']['name']);
         $this->load->view('book', $data);
@@ -114,6 +116,20 @@ class Page extends CI_Controller {
         $this->load->view('addBook');
         $this->load->view('googleSearchResults', $data);
         $this->load->view('template/footer');
+    }
+
+    public function reviewBook() {
+        $this->load->model('login_model');
+        $this->load->model('review_model');
+        $user = $this->login_model->getCurrentUser();
+        if ($user!=null) {
+            $userId = $user->id;
+            $bookId = $this->input->post('book');
+            $rank = $this->input->post('rank');
+            $review = $this->input->post('review');
+            $this->review_model->addReview($userId, $bookId, $rank, $review);
+        }
+        $this->book($bookId);
     }
 
     public function addBook($googleBookId) {
