@@ -25,7 +25,7 @@
                         <div class="panel-heading">
                             <a href="/page/bookshelf/<?php echo $friends[$j]->id; ?>">
                                 <Img
-                                    src="http://graph.facebook.com/<?php echo $friends[$j]->fbid; ?>/picture?width=150&height=150"
+                                    src="https://graph.facebook.com/<?php echo $friends[$j]->fbid; ?>/picture?width=150&height=150"
                                     class="img-rounded" style="min-height:130px;height:130px;">
                             </a>
 
@@ -38,7 +38,13 @@
                                     </li>
                                     <?php if (isset($bookId)): ?>
                                         <li class="alert-success">
-                                            <a href="/page/loanBook/<?php echo $bookId; ?>/<?php echo $friends[$j]->id; ?>">Request this book</a>
+                                            <form action="/page/loanBook" method="post" name="loanFormNum<?php echo $j; ?>">
+                                                <input type="hidden" value="<?php echo $bookId; ?>" name="bookGoogleId">
+                                                <input type="hidden" value="<?php echo $friends[$j]->id; ?>" name="ownerUserId">
+                                                <button type="submit" class="btn btn-default btn-sm">
+                                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Loan Book
+                                                </button>
+                                            </form>
                                         </li>
                                     <?php endif; ?>
                                     <li> <!--link to facebook message with link to the book. there is some problem with the book page url-->
@@ -67,7 +73,7 @@
 
 
 <?php if (isset($invite) && $invite): ?>
-    <script src="http://connect.facebook.net/en_US/all.js"></script>
+    <script src="https://connect.facebook.net/en_US/all.js"></script>
     <script>
         FB.init({
             appId:'636197546460681',

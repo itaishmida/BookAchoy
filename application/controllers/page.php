@@ -128,14 +128,14 @@ class Page extends CI_Controller
         $this->load->model('review_model');
 
         $data['book'] = $this->book_model->getBook($bookId);
-        $friendsData['friends'] = $this->book_model->getOwners($data['book']['id']);
+        $friendsData['friends'] = $this->book_model->getOwners($data['book']->id);
         $friendsData['title'] = "Friends who has this book";
-        $friendsData['bookId'] = $bookId;
+        $friendsData['bookId'] = $data['book']->google_id;
         $user = $this->login_model->getCurrentUser();
         $data['isOwnedByCurrentUser'] = $user != null && $this->book_model->isOwnedby($bookId, $user->id);
         $data['reviews'] = $this->review_model->getReviews($bookId);
 
-        $this->loadHeader($data['book']['name']);
+        $this->loadHeader($data['book']->name);
         $this->load->view('book', $data);
         $this->load->view('friends', $friendsData);
         $this->load->view('template/footer');

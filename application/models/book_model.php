@@ -211,7 +211,7 @@ class book_model extends CI_Model
                 $book = $this->getBookByGoogleId($googleBook['google_id']);
             }
         }
-        return $book['id'];
+        return $book->id;
     }
 
     function addBookToUserByGoogleId($userId, $googleBookId)
