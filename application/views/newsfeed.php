@@ -20,7 +20,7 @@
                                         class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <form action="loanBook" method="post" name="loanFormNum<? php echo $i ?>">
+                                        <form action="loanBook" method="post" name="loanFormNum<?php echo $i; ?>">
                                             <input type="hidden" value="<?php echo $result[$i]->google_id; ?>" name="bookGoogleId">
                                             <input type="hidden" value="<?php echo $result[$i]->friend_id; ?>" name="ownerUserId">
                                             <button type="submit" class="btn btn-default btn-sm">

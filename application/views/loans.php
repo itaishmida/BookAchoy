@@ -33,7 +33,7 @@
                     </h4>
 
                     <?php if ($loansToMe[$i]->due_date == null) { ?>
-                        <form action="/page/deleteLoan" method="post" name="cancelRequestFormNum<? php echo $i ?>">
+                        <form action="/page/deleteLoan" method="post" name="cancelRequestFormNum<?php echo $i; ?>">
                             <input type="hidden" value="<?php echo $loansToMe[$i]->google_id ?>" name="bookGoogleId">
                             <input type="hidden" value="<?php echo $loansToMe[$i]->friendId ?>" name="RequestingFriendId">
                             <input type="hidden" value="IBorrow" name="loanType">
@@ -41,13 +41,13 @@
 
                         <div class="btn-group">
                             <button type="submit"
-                                    onclick="document.forms['cancelRequestFormNum<? php echo $i ?>'].submit();"
+                                    onclick="document.forms['cancelRequestFormNum<?php echo $i ?>'].submit();"
                                     class="btn btn-danger btn-sm pull-right">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Cancel Request
                             </button>
                         </div>
                     <?php } else { ?>
-                        <form action="/page/deleteLoan" method="post" name="completeLoanFormNum<? php echo $i ?>">
+                        <form action="/page/deleteLoan" method="post" name="completeLoanFormNum<?php echo $i ?>">
                             <input type="hidden" value="<?php echo $loansToMe[$i]->google_id ?>" name="bookGoogleId">
                             <input type="hidden" value="<?php echo $loansToMe[$i]->friendId ?>" name="RequestingFriendId">
                             <input type="hidden" value="IBorrow" name="loanType">
@@ -55,7 +55,7 @@
 
                         <div class="btn-group">
                             <button type="submit"
-                                    onclick="document.forms['completeLoanFormNum<? php echo $i ?>'].submit();"
+                                    onclick="document.forms['completeLoanFormNum<?php echo $i ?>'].submit();"
                                     class="btn btn-success btn-sm pull-right">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Mark Book As
                                 Returned
@@ -113,13 +113,13 @@
                         <?php echo($loansFromMe[$i]->due_date == null ? '<strong>is requesting </strong> from me.' : '<strong>is borrowing</strong> from me.') ?>
                     </h4>
                     <?php if ($loansFromMe[$i]->due_date == null) { ?>
-                        <form action="/page/confirmLoan" method="post" name="confirmLoanFormNum<? php echo $i ?>">
+                        <form action="/page/confirmLoan" method="post" name="confirmLoanFormNum<?php echo $i ?>">
                             <input type="hidden" value="<?php echo $loansFromMe[$i]->google_id ?>" name="bookGoogleId">
                             <input type="hidden" value="<?php echo $loansFromMe[$i]->userId ?>"
                                    name="RequestingFriendId">
                         </form>
 
-                        <form action="/page/deleteLoan" method="post" name="denyLoanFormNum<? php echo $i ?>">
+                        <form action="/page/deleteLoan" method="post" name="denyLoanFormNum<?php echo $i ?>">
                             <input type="hidden" value="<?php echo $loansFromMe[$i]->google_id ?>" name="bookGoogleId">
                             <input type="hidden" value="<?php echo $loansFromMe[$i]->userId ?>"
                                    name="RequestingFriendId">
@@ -129,18 +129,18 @@
 
                         <div class="btn-group">
                             <button type="submit"
-                                    onclick="document.forms['confirmLoanFormNum<? php echo $i ?>'].submit();"
+                                    onclick="document.forms['confirmLoanFormNum<?php echo $i ?>'].submit();"
                                     class="btn btn-success btn-sm pull-left">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Confirm Loan
                             </button>
                             <button type="submit"
-                                    onclick="document.forms['denyLoanFormNum<? php echo $i ?>'].submit();"
+                                    onclick="document.forms['denyLoanFormNum<?php echo $i ?>'].submit();"
                                     class="btn btn-danger btn-sm pull-right">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Deny Loan
                             </button>
                         </div>
                     <?php } else { ?>
-                        <form action="/page/deleteLoan" method="post" name="markReturnedFormNum<? php echo $i ?>">
+                        <form action="/page/deleteLoan" method="post" name="markReturnedFormNum<?php echo $i ?>">
                             <input type="hidden" value="<?php echo $loansFromMe[$i]->google_id ?>" name="bookGoogleId">
                             <input type="hidden" value="<?php echo $loansFromMe[$i]->userId ?>"
                                    name="RequestingFriendId">
@@ -150,7 +150,7 @@
 
                         <div class="btn-group">
                             <button type="submit"
-                                    onclick="document.forms['markReturnedFormNum<? php echo $i ?>'].submit();"
+                                    onclick="document.forms['markReturnedFormNum<?php echo $i ?>'].submit();"
                                     class="btn btn-success btn-sm pull-right">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Mark Book As Returned
                             </button>
