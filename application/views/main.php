@@ -1,3 +1,10 @@
+<style>
+    body{
+        background: url(http://images3.alphacoders.com/228/228739.jpg);
+        background-size:   cover;
+    }
+</style>
+
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -11,18 +18,20 @@
                 <p>
                     BookAchoy interfaces with Facebook and Amazon to allow users to login, look at friends' bookshelves and publish their own.
                 </p>
-                <p>
-                    <a class="btn btn-primary btn-large" href="<?php echo base_url("/page/how_it_works") ?>">Learn more</a>
-                </p>
+                <div class="centered">
+                    <p>
+                        <a href="<?php echo $fbLogin; ?>" class="btn btn-success btn-large getStartedBtn"><i class="icon-white icon-book"></i> Get Started</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix mainFooter">
         <div class="col-md-4 column">
             <h2>
                 Unique
             </h2>
-            <p>
+            <p class="mainFooterText">
                 Such application is non-existent in today's market and as such it has great potential as we all read books and would probably be happy to share our books with one another.
             </p>
 
@@ -31,7 +40,7 @@
             <h2>
                 Elegant
             </h2>
-            <p>
+            <p class="mainFooterText">
                 BookAchoy aims to create a simple and focused application that will be developed efficiently and during a short period of time.
             </p>
 
@@ -40,7 +49,7 @@
             <h2>
                 Friendly
             </h2>
-            <p>
+            <p class="mainFooterText">
                 BookAchoy will provide an easy to use and a highly intuitive user interface where the user can easily manage his books and their current statuses.
             </p>
 

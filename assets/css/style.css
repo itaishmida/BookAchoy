@@ -3,3 +3,19 @@
 .newsFeedBookMenu{float: right;padding-right: 50px}
 div.newsFeedBookInfo { float: left; margin-left: 20px; }
 .newsFeedWrapper{width: 810px;   margin: 0 auto;}
+.headerImg{background: url(http://www.taxi-library.org/img/books-header.jpg); color: rgb(126, 201, 236); text-shadow: 2px 2px #1D0808; font-weight: bold;}
+.getStartedBtn{
+
+    width: 300px ;
+    height: 43px;
+    line-height: 30px !important;
+    font-weight: bold !important;
+    font-size: 30px !important;
+    margin-top: 60px !important;
+}
+.mainFooterText{text-align: justify; }
+.mainFooter{background-color: rgba(255,255,255,0.8);}
+.centered
+{
+    text-align:center;
+}
