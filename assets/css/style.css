@@ -1,1 +1,5 @@
 .logo{font-family: lobster; font-size: 25px !important; line-height: 11px !important;}
+.newsFeedImg{float:left;padding-left: 50px;}
+.newsFeedBookMenu{float: right;padding-right: 50px}
+div.newsFeedBookInfo { float: left; margin-left: 20px; }
+.newsFeedWrapper{width: 810px;   margin: 0 auto;}

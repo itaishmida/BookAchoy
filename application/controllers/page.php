@@ -8,7 +8,7 @@ class Page extends CI_Controller
     {
         $this->load->model('facebook_model');
         $data['fbLogin'] = $this->facebook_model->getLoginUrl();
-        $this->loadHeader("");
+        $this->loadHeader("Bookachoy");
         $this->load->view('main', $data);
         $this->load->view('template/footer');
 
@@ -282,6 +282,8 @@ class Page extends CI_Controller
             $dataHeader['username'] = "login";
             $dataHeader['loggedIn'] = false;
         }
+        if($dataHeader['loggedIn'] == true && $title == "Bookachoy")
+            redirect(base_url("page/NewsFeed"));
         $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
         $dataHeader['title'] = $title;
         $this->load->view('template/header', $dataHeader);
