@@ -39,9 +39,6 @@ USE `maplehos_bookachoy`;
 --
 
 
-DROP TABLE IF EXISTS `book`, `loans`, `review`, `user`, `users_friends`, `users_owned_books`, `users_read_books`, `wishes`;
-DROP TABLE IF EXISTS `book`, `user`;
-
 DROP TABLE IF EXISTS `book`;
 CREATE TABLE IF NOT EXISTS `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -71,9 +68,9 @@ CREATE TABLE IF NOT EXISTS `loans` (
   `friend_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `loan_date` date,
-  `due_date` date NOT NULL,
+  `due_date` date,
   `request_date` date NOT NULL,
-  UNIQUE KEY `loan_unique_index` (`user_id`,`friend_id`,`book_id`,`loan_date`),
+  UNIQUE KEY `loan_unique_index` (`user_id`,`friend_id`,`book_id`),
   KEY `user_id` (`user_id`),
   KEY `friend_id` (`friend_id`),
   KEY `book_id` (`book_id`)

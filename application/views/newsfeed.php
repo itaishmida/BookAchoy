@@ -19,12 +19,17 @@
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
                                         class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li class="alert-success"><a data-friendId="<?php echo $result[$i]->friend_id; ?>"
-                                                                 data-bookId="<?php echo $result[$i]->google_id; ?>"
-                                                                 onclick="alert('Implement book loan!')">Loan Book</a>
+                                    <li>
+                                        <form action="loanBook" method="post" name="loanFormNum<? php echo $i ?>">
+                                            <input type="hidden" value="<?php echo $result[$i]->google_id; ?>" name="bookGoogleId">
+                                            <input type="hidden" value="<?php echo $result[$i]->friend_id; ?>" name="ownerUserId">
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Loan Book
+                                            </button>
+                                        </form>
                                     </li>
                                     <li class="divider"></li>
-                                    <li><a href="/page/book/<?php echo $result[$i]->book_id; ?>">Book's Profile</a></li>
+                                    <li><a href="book/<?php echo $result[$i]->book_id; ?>">Book's Profile</a></li>
                                     <li>
                                         <a onclick="alert('Broadcasting a book means posting to friends that you have it (maybe on FB, think about it...)')">Broadcast
                                             Book</a></li>

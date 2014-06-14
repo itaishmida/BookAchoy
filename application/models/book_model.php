@@ -17,7 +17,7 @@ class book_model extends CI_Model
 
     function getBook($id)
     {
-        $books = $this->db->query('SELECT * FROM book WHERE id = ' . $id)->result_array();
+        $books = $this->db->query('SELECT * FROM book WHERE id = ' . $id)->result();
         if ($books != null)
             return $books[0];
         return null;
@@ -25,7 +25,7 @@ class book_model extends CI_Model
 
     function getBookByGoogleId($googleBookId)
     {
-        $books = $this->db->query('SELECT * FROM book WHERE google_id="' . $googleBookId . '"')->result_array();
+        $books = $this->db->query('SELECT * FROM book WHERE google_id="' . $googleBookId . '"')->result();
         if ($books != null)
             return $books[0];
         return null;
