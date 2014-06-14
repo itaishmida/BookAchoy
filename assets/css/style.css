@@ -9,3 +9,4 @@ div.newsFeedBookInfo { float: left; margin-left: 20px; }
 .mainFooter{background-color: rgba(255,255,255,0.8);}
 .centered { text-align:center; }
 input[type="text"] { height: 33px; }
+.mainFooterHead{text-align: center;}

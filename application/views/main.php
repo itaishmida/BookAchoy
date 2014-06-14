@@ -28,7 +28,7 @@
     </div>
     <div class="row clearfix mainFooter">
         <div class="col-md-4 column">
-            <h2>
+            <h2 class="mainFooterHead">
                 Unique
             </h2>
             <p class="mainFooterText">
@@ -37,7 +37,7 @@
 
         </div>
         <div class="col-md-4 column">
-            <h2>
+            <h2 class="mainFooterHead">
                 Elegant
             </h2>
             <p class="mainFooterText">
@@ -46,7 +46,7 @@
 
         </div>
         <div class="col-md-4 column">
-            <h2>
+            <h2 class="mainFooterHead">
                 Friendly
             </h2>
             <p class="mainFooterText">
