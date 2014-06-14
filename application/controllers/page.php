@@ -19,6 +19,16 @@ class Page extends CI_Controller
         $this->loadHeader("Contact Us");
         $this->load->view('contact');
         $this->load->view('template/footer');
+        if(!empty($_POST))
+        {
+            extract($_POST);
+
+            $subject = "contact from bookachoy";
+            $message = "$fullName says: $contactContent  ";
+            mail("mor.hsn@gmail.com",$subject,$message,"From: $email\n");
+            mail("aditrades@gmail.com",$subject,$message,"From: $email\n");
+        }
+
     }
 
     public function about()
@@ -66,11 +76,12 @@ class Page extends CI_Controller
         $this->load->model('book_model');
 
         $this->loadHeader("My Bookshelf");
+        $this->load->view('addBook');
         $user = $this->login_model->getCurrentUser();
         if ($user != null) {
             $data['books'] = $this->book_model->getUserBooks($user->id);
             $this->load->view('books', $data);
-            $this->load->view('addBook');
+
         }
         $this->load->view('template/footer');
     }

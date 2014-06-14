@@ -2,7 +2,7 @@
     <div class="row clearfix">
         <div class="col-md-6 column">
             <h1>Contact Us</h1>
-            <form role="form">
+            <form role="form" action="" method="post">
                 <div class="form-group">
                     <label for="fullName">Name</label><input type="text" class="form-control" id="fullName" name="fullName" />
                 </div>
