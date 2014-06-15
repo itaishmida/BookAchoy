@@ -13,19 +13,50 @@
                     Welcome to bookAchoy
                 </h1>
                 <p>
-                    The purpose of BookAchoy is to provide users a platform to borrow, lend and review books between friends.
-                </p>
-                <p>
-                    BookAchoy interfaces with Facebook and Amazon to allow users to login, look at friends' bookshelves and publish their own.
+                    Looking for a book? Planing to go to the book store and but it?<BR>
+                    One of your friend may already have it.
                 </p>
                 <div class="centered">
-                    <p>
                         <a href="<?php echo $fbLogin; ?>" class="btn btn-success btn-large getStartedBtn"><i class="icon-white icon-book"></i> Get Started</a>
-                    </p>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row clearfix mainFooter">
+        <div class="col-md-4 column">
+            <h2 class="mainFooterHead">
+                Explore
+            </h2>
+            <p class="mainFooterText">
+                <B>Explore</B> your friends' bookshelves.<BR>
+                Read their <B>opinion</B> about the book, and share yours.
+            </p>
+
+        </div>
+        <div class="col-md-4 column">
+            <h2 class="mainFooterHead">
+                Borrow
+            </h2>
+            <p class="mainFooterText">
+                Ask your friend to <B>borrow</B> you a book.<BR>
+                <B>Manage</B> your requests you friends' requests from you.
+            </p>
+
+        </div>
+        <div class="col-md-4 column">
+            <h2 class="mainFooterHead">
+                Share
+            </h2>
+            <p class="mainFooterText">
+                <B>Share</B> your books with your friends.<BR>
+                Allow them to ask you for books.
+            </p>
+
+        </div>
+    </div>
+
+    <!--
     <div class="row clearfix mainFooter">
         <div class="col-md-4 column">
             <h2 class="mainFooterHead">
@@ -55,4 +86,5 @@
 
         </div>
     </div>
+    -->
 </div>

@@ -27,6 +27,9 @@
             </ul>
             <p>This project is done as a part of the software engineering course
                 (<a href="https://github.com/jce-il/se-class/wiki">https://github.com/jce-il/se-class/wiki</a>).</p>
+
+            <H2><a href="https://github.com/itaishmida/BookAchoy/wiki">Project Wiki</a></H2>
+            <H2><a href="https://github.com/itaishmida/BookAchoy/wiki/User-Manual">User Manual</a></H2>
         </div>
     </div>
 </div>
