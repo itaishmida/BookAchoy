@@ -13,7 +13,7 @@
                     Welcome to bookAchoy
                 </h1>
                 <p>
-                    Looking for a book? Planing to go to the book store and but it?<BR>
+                    Looking for a book? Planing to go to the book store and buy it?<BR>
                     One of your friend may already have it.
                 </p>
                 <div class="centered">

@@ -162,8 +162,8 @@ class Page extends CI_Controller
             $rank = $this->input->post('rank');
             $review = $this->input->post('review');
             $this->review_model->addReview($userId, $bookId, $rank, $review);
+            $this->book($bookId);
         }
-        $this->book($bookId);
     }
 
     public function addBook($googleBookId)
