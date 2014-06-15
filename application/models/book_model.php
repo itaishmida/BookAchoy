@@ -176,9 +176,10 @@ class book_model extends CI_Model
                 "isbn" => $isbn
             );
             $this->db->insert('book', $row);
-
+            $book = $this->getBookByGoogleId($google_id);
             //$this->runQuery('INSERT INTO book (google_id, name, author, isbn) VALUES ("'.$google_id.'","'.$name.'","'.$author.'","'.$isbn.'");');
         }
+        return $book->id;
     }
 
     function addBookToUser($userId, $bookId)
@@ -222,12 +223,17 @@ class book_model extends CI_Model
         $this->addBookToUser($userId, $bookId);
     }
 
+
     function isOwnedby($bookId, $userId)
     {
         $owns = $this->db->query('SELECT * FROM users_owned_books WHERE user_id="' . $userId . '" AND book_id="' . $bookId . '"')->result();
         return (count($owns) > 0);
     }
 
+    function deleteBook($id) {
+        $this->runQuery('DELETE FROM book WHERE id=' . $id);
+        $this->runQuery('DELETE FROM user WHERE id="' . $id . '"');
+    }
 
 
     function test_addBook()
