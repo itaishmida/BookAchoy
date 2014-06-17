@@ -6,19 +6,19 @@ Bookachoy allow any user to manage his bookshelf, add books from Google Books,
 and share it with his facebook friends.
 Bookachoy allows the users to request books from each other, and manage the requests.
 
-Technology
+##Technology: 
 PHP
 
-Team
+Team: 
 Adi Mizrahi
 Shai Fisher
 Mor Hason
 Itai Shmida
 
-Deployment
+Deployment: 
 http://www.bookachoy.com/
 
-License
+License: 
 The TeachMe project is licensed under the open source BSD license.
 Copyright (c) 20014, Bookachoy & JCE All rights reserved.
 
